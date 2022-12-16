@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,10 +39,10 @@ Route::middleware('auth')->group(function () {
 
 Route::group(['middleware' => ['role:admin']], function(){
 
-    // Role
-    Route::controller(RoleController::class)->group(function(){
-        Route::prefix('roles')->group(function(){
-            Route::get('/', 'index');
+    // Member Routes
+    Route::controller(MemberController::class)->group(function(){
+        Route::prefix('member')->group(function(){
+            Route::get('/', 'index')->name('admin.member.index');
         });
     });
 });

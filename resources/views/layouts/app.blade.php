@@ -4,9 +4,11 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-        <title>MC Dashboard | @yield('title')</title>
+        <title>MC TECHNOLOGY | @yield('title')</title>
 
         @include('components.css')
+
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
     <body>
