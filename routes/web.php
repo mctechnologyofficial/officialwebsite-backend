@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 // force logout routes, temporary for debugging
 Route::get('/force/logout', function (Request $request) {

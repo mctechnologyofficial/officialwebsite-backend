@@ -27,59 +27,70 @@ class RolePermissionSeeder extends Seeder
             'created_at'            => Carbon::now(),
             'updated_at'            => Carbon::now(),
         ];
+        $owner = User::create(array_merge([
+            'name'          => 'Owner MC',
+            'email'         => 'owner@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => null,
+        ], $default_user_value));
 
-        DB::beginTransaction();
+        $admin = User::create(array_merge([
+            'name'          => 'Admin MC',
+            'email'         => 'admin@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => null,
+        ], $default_user_value));
 
-        try {
-            $owner = User::create(array_merge([
-                'name'          => 'Owner MC',
-                'email'         => 'owner@mctechnologyofficial.com',
-                'password'      => Hash::make('password'),
-            ], $default_user_value));
+        $sales = User::create(array_merge([
+            'name'          => 'Sales MC',
+            'email'         => 'sales@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => null,
+        ], $default_user_value));
 
-            $admin = User::create(array_merge([
-                'name'          => 'Admin MC',
-                'email'         => 'admin@mctechnologyofficial.com',
-                'password'      => Hash::make('password'),
-            ], $default_user_value));
+        $frontend = User::create(array_merge([
+            'name'          => 'Frontend Developer MC',
+            'email'         => 'frontend@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => 1,
+        ], $default_user_value));
 
-            $sales = User::create(array_merge([
-                'name'          => 'Sales MC',
-                'email'         => 'sales@mctechnologyofficial.com',
-                'password'      => Hash::make('password'),
-            ], $default_user_value));
+        $backend = User::create(array_merge([
+            'name'          => 'Backend Developer MC',
+            'email'         => 'backend@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => 1,
+        ], $default_user_value));
 
-            $developer = User::create(array_merge([
-                'name'          => 'Developer MC',
-                'email'         => 'developer@mctechnologyofficial.com',
-                'password'      => Hash::make('password'),
-            ], $default_user_value));
+        $mobile = User::create(array_merge([
+            'name'          => 'Mobile Developer MC',
+            'email'         => 'mobile@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => 1,
+        ], $default_user_value));
 
-            DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollBack();
-        }
+        $uiux = User::create(array_merge([
+            'name'          => 'UI/UX Designer MC',
+            'email'         => 'uiux@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => 1,
+        ], $default_user_value));
 
+        $role_owner = Role::create(['name' => 'owner']);
         $role_admin = Role::create(['name' => 'admin']);
         $role_sales = Role::create(['name' => 'sales']);
-        $role_developer = Role::create(['name' => 'developer']);
-        $role_owner = Role::create(['name' => 'owner']);
-
-        $permission = Permission::create(['name' => 'read role']);
-        $permission = Permission::create(['name' => 'create role']);
-        $permission = Permission::create(['name' => 'update role']);
-        $permission = Permission::create(['name' => 'delete role']);
-
-        $role_admin->givePermissionTo('read role');
-        $role_admin->givePermissionTo('create role');
-        $role_admin->givePermissionTo('update role');
-        $role_admin->givePermissionTo('delete role');
+        $role_frontend = Role::create(['name' => 'frontend developer']);
+        $role_backend = Role::create(['name' => 'backend developer']);
+        $role_mobile = Role::create(['name' => 'mobile developer']);
+        $role_uiux = Role::create(['name' => 'UI/UX designer']);
 
         $owner->assignRole('owner');
         $admin->assignRole('admin');
         $sales->assignRole('sales');
-        $developer->assignRole('developer');
 
-
+        $frontend->assignRole('frontend developer');
+        $backend->assignRole('backend developer');
+        $mobile->assignRole('mobile developer');
+        $uiux->assignRole('UI/UX designer');
     }
 }

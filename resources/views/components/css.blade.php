@@ -1,12 +1,27 @@
-<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('assets/img/apple-icon.png') }}">
-<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}">
-<!--     Fonts and icons     -->
-<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
-<!-- Nucleo Icons -->
-<link href="{{ asset('assets/css/nucleo-icons.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/css/nucleo-svg.css') }}" rel="stylesheet" />
-<!-- Font Awesome Icons -->
-<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-<link href="{{ asset('assets/css/nucleo-svg.css" rel="stylesheet') }}" />
-<!-- CSS Files -->
-<link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css?v=2.0.4') }}" rel="stylesheet" />
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"/>
+
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+
+<!-- Core CSS -->
+<link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
+<link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
+
+<!-- Vendors CSS -->
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
+
+<link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}" />
+
+<!-- Page CSS -->
+
+<!-- Helpers -->
+<script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+
+<script src="{{ asset('assets/js/config.js') }}"></script>
