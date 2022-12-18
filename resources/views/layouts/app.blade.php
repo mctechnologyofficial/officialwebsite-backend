@@ -70,6 +70,12 @@
     @include('components.js')
 
     @yield('js')
+
+    <script>
+        $('.logout').on('click', function(){
+            $('.btnlogout').click();
+        });
+    </script>
 </body>
 
 </html>

@@ -89,9 +89,13 @@
                     <a class="dropdown-item" href="profile.html">
                         <i class="fe fe-compass"></i> Activity
                     </a>
-                    <a class="dropdown-item" href="signin.html">
-                        <i class="fe fe-power"></i> Sign Out
-                    </a>
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <a class="dropdown-item logout" href="javascript:void(0)">
+                            <i class="fe fe-power"></i> Sign Out
+                        </a>
+                        <button type="submit" class="d-none btnlogout"></button>
+                    </form>
                 </div>
             </div>
             <button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse"
