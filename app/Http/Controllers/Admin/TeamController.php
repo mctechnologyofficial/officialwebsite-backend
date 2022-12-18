@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -103,6 +104,6 @@ class TeamController extends Controller
         $attrs = Team::find($id);
         $attrs->delete();
 
-        return redirect()->route('admin.team.index');
+        return redirect()->route('admin.team.index')->with('success', 'Team has been deleted successfully !');
     }
 }
