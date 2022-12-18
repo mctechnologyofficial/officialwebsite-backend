@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class MemberController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     *
+     *  Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $member = User::selectRaw('users.*, teams.name AS teamname')
-        ->join('teams', 'teams.id', '=', 'users.team_id')
-        ->whereHas( 'roles', function($query){
-            $query->where('name', '!=', 'admin');
-            $query->where('name', '!=', 'owner');
-        })
-        ->orderBy('id', 'ASC')
-        ->get();
+            ->join('teams', 'teams.id', '=', 'users.team_id')
+            ->whereHas('roles', function ($query) {
+                $query->where('name', '!=', 'admin');
+                $query->where('name', '!=', 'owner');
+            })
+            ->orderBy('id', 'ASC')
+            ->get();
 
         return view('layouts.admin.member.list', compact(['member']));
     }
@@ -33,7 +37,9 @@ class MemberController extends Controller
      */
     public function create()
     {
-        return view('layouts.admin.member.add');
+        $role = Role::whereNot('name', 'owner')->get();
+        $team = Team::all();
+        return view('layouts.admin.member.add', compact(['role', 'team']));
     }
 
     /**
@@ -46,8 +52,30 @@ class MemberController extends Controller
     {
         $attributes = $request->validate([
             'name'      => 'required|string',
-            ''
+            'email'     => 'required|email',
+            'password'  => 'required|string',
+            'position'  => 'required',
+            'team_id'   => 'required',
+            'image'     => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
+
+        $file = $request->file('image');
+        $filename = sprintf('%s_%s.%s', date('Y-m-d'), md5(microtime(true)), $file->extension());
+        $image_path = $file->move('storage/users', $filename);
+
+        $user = User::create([
+            'name'      => $attributes['name'],
+            'email'     => $attributes['email'],
+            'password'  => Hash::make($attributes['password']),
+            'team_id'   => $attributes['team_id'],
+            'image'     => $image_path,
+        ]);
+
+        // assign role
+        $role = Role::find($attributes['position']);
+        $user->assignRole($role);
+
+        return redirect()->route('admin.member.create')->with('success', 'User has been saved successfully !');
     }
 
     /**
@@ -92,6 +120,8 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id', $id)->delete();
+
+        return redirect()->route('admin.member.index')->with('success', 'User has been deleted successfuly !');
     }
 }
