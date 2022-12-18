@@ -23,6 +23,11 @@ class User extends Authenticatable
         'email',
         'password',
         'team_id',
+        'github_url',
+        'facebook_url',
+        'twitter_url',
+        'instagram_url',
+        'linkedin_url',
         'image',
     ];
 

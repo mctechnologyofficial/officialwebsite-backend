@@ -4,7 +4,7 @@
 Project        :   SPRUHA - HTML5 Bootstrap Admin Template
 Version        :   V.1
 Create Date    :   03/10/20
-Copyright      :   Spruko Technologies Private Limited 
+Copyright      :   Spruko Technologies Private Limited
 Author         :   SprukoSoft
 Author URL     :   https://themeforest.net/user/sprukosoft
 Support	       :   support@spruko.com
@@ -16168,7 +16168,7 @@ ul.inbox-pagination {
     -webkit-box-pack: end;
     justify-content: flex-end;
     overflow: hidden;
-    background: url(../img/media/bg-img.jpg) no-repeat;
+    background: url("https://static.vecteezy.com/system/resources/previews/002/884/043/original/abstract-red-and-black-futuristic-gaming-background-in-livestream-free-vector.jpg") no-repeat;
     background-size: cover;
 }
 
@@ -16189,6 +16189,10 @@ ul.inbox-pagination {
     max-width: 120px;
     border: 5px solid #ffffff;
     border-radius: 50%;
+}
+
+.profile-cover__img>img:hover {
+    cursor: pointer;
 }
 
 .profile-cover__img>.h3 {
@@ -67690,7 +67694,7 @@ a.tag-addon:hover {
 
 .navbar-toggler .header-icons:hover,
 .option-dots:hover {
-    background-color: #f0f0ff;
+    background-color: #0e0e23;
     border-radius: 50%;
 }
 
@@ -71306,7 +71310,7 @@ input[type="search"]::-webkit-search-cancel-button {
     width: inherit !important;
     height: inherit !important;
     border-radius: inherit !important;
-    background: transparent;
+    background-color: #0e0e23;
     text-align: inherit !important;
     line-height: inherit !important;
     display: inherit !important;
@@ -72612,7 +72616,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .user-lock .option-dots:hover {
-    background: transparent;
+    background-color: #0e0e23;
 }
 
 @media (min-width: 1173px) {

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class ProfileController extends Controller
@@ -15,30 +17,52 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request)
+    public function index(Request $request)
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = User::find($request->user()->id);
+        $team = User::where('team_id', $request->user()->team_id)->get();
+        return view('profile.show', compact(['user', 'team']));
+    }
+
+    /**
+     * Display the user's profile form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\View\View
+     */
+    public function show(Request $request, $id)
+    {
+        $user = User::find($id);
+        $team = User::where('team_id', $request->user()->team_id)->get();
+        return view('profile.show', compact(['user', 'team']));
     }
 
     /**
      * Update the user's profile information.
      *
-     * @param  \App\Http\Requests\ProfileUpdateRequest  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(ProfileUpdateRequest $request)
+    public function update(Request $request)
     {
-        $request->user()->fill($request->validated());
+        User::where('id', Auth::user()->id)->update($request->except(['_token', '_method']));
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
+        return redirect()->route('profile.index')->with('success', 'Profile updated !');
+    }
 
-        $request->user()->save();
+    /**
+     * Update the user's profile information.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updatepassword(Request $request)
+    {
+        User::where('id', Auth::user()->id)->update([
+            'password'  => Hash::make($request->password),
+        ]);
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('profile.index')->with('success', 'Password updated !');
     }
 
     /**
@@ -49,11 +73,7 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request)
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current-password'],
-        ]);
-
-        $user = $request->user();
+        $user = User::find(Auth::user()->id);
 
         Auth::logout();
 

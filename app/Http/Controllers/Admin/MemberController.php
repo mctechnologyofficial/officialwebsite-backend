@@ -20,13 +20,13 @@ class MemberController extends Controller
     public function index()
     {
         $member = User::selectRaw('users.*, teams.name AS teamname')
-            ->join('teams', 'teams.id', '=', 'users.team_id')
-            ->whereHas('roles', function ($query) {
-                $query->where('name', '!=', 'admin');
-                $query->where('name', '!=', 'owner');
-            })
-            ->orderBy('id', 'ASC')
-            ->get();
+        ->join('teams', 'teams.id', '=', 'users.team_id')
+        ->whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'admin');
+            $query->where('name', '!=', 'owner');
+        })
+        ->orderBy('id', 'ASC')
+        ->get();
 
         return view('layouts.admin.member.list', compact(['member']));
     }
@@ -52,12 +52,17 @@ class MemberController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'name'      => 'required|string',
-            'email'     => 'required|email',
-            'password'  => 'required|string',
-            'position'  => 'required',
-            'team_id'   => 'required',
-            'image'     => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'name'              => 'required|string',
+            'email'             => 'required|email',
+            'password'          => 'required|string',
+            'position'          => 'required',
+            'team_id'           => '',
+            'github_url'        => 'string',
+            'facebook_url'      => 'string',
+            'twitter_url'       => 'string',
+            'instagram_url'     => 'string',
+            'linkedin_url'      => 'string',
+            'image'             => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         $file = $request->file('image');
@@ -65,11 +70,17 @@ class MemberController extends Controller
         $image_path = $file->move('storage/users', $filename);
 
         $user = User::create([
-            'name'      => $attributes['name'],
-            'email'     => $attributes['email'],
-            'password'  => Hash::make($attributes['password']),
-            'team_id'   => $attributes['team_id'],
-            'image'     => $image_path,
+            'name'              => $attributes['name'],
+            'email'             => $attributes['email'],
+            'password'          => Hash::make($attributes['password']),
+            'position'          => $attributes['position'],
+            'team_id'           => $attributes['team_id'],
+            'github_url'        => $attributes['github_url'],
+            'facebook_url'      => $attributes['facebook_url'],
+            'twitter_url'       => $attributes['twitter_url'],
+            'instagram_url'     => $attributes['instagram_url'],
+            'linkedin_url'      => $attributes['linkedin_url'],
+            'image'             => $image_path,
         ]);
 
         // assign role
@@ -115,11 +126,16 @@ class MemberController extends Controller
     {
         $user = User::find($id);
         $attributes = $request->validate([
-            'name'      => 'required|string',
-            'email'     => 'required|email',
-            'position'  => 'required',
-            'team_id'   => 'required',
-            'image'     => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+            'name'              => 'required|string',
+            'email'             => 'required|email',
+            'position'          => 'required',
+            'team_id'           => '',
+            'github_url'        => 'string',
+            'facebook_url'      => 'string',
+            'twitter_url'       => 'string',
+            'instagram_url'     => 'string',
+            'linkedin_url'      => 'string',
+            'image'             => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
         if($request->hasFile('image')){
@@ -132,10 +148,16 @@ class MemberController extends Controller
         }
 
         $user->update([
-            'name'      => $attributes['name'],
-            'email'     => $attributes['email'],
-            'team_id'   => $attributes['team_id'],
-            'image'     => $image_path,
+            'name'              => $attributes['name'],
+            'email'             => $attributes['email'],
+            'position'          => $attributes['position'],
+            'team_id'           => $attributes['team_id'],
+            'github_url'        => $attributes['github_url'],
+            'facebook_url'      => $attributes['facebook_url'],
+            'twitter_url'       => $attributes['twitter_url'],
+            'instagram_url'     => $attributes['instagram_url'],
+            'linkedin_url'      => $attributes['linkedin_url'],
+            'image'             => $image_path,
         ]);
 
         // assign role
@@ -153,7 +175,9 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id', $id)->delete();
+        $user = User::find($id);
+        unlink($user->image);
+        $user->delete();
 
         return redirect()->route('admin.member.index')->with('success', 'User has been deleted successfuly !');
     }

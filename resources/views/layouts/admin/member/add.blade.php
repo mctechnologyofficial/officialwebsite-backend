@@ -76,11 +76,57 @@
                             <label for="exampleInputPassword1" class="form-label">Team</label>
                             <select name="team_id" class="form-control @error('team_id') is-invalid @enderror" id="exampleInputPassword1">
                                 <option value="" selected disabled>Choose position</option>
+                                <option value="">None</option>
                                 @foreach ($team as $data)
                                     <option value="{{ $data->id }}">{{ $data->name }}</option>
                                 @endforeach
                             </select>
                             @error('team_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Github URL</label>
+                            <input type="text" name="github_url" class="form-control @error('github_url') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('github_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Facebook URL</label>
+                            <input type="text" name="facebook_url" class="form-control @error('facebook_url') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('facebook_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Twitter URL</label>
+                            <input type="text" name="twitter_url" class="form-control @error('twitter_url') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('twitter_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Instagram URL</label>
+                            <input type="text" name="instagram_url" class="form-control @error('instagram_url') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('instagram_url')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">LinkedIn URL</label>
+                            <input type="text" name="linkedin_url" class="form-control @error('linkedin_url') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('linkedin_url')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

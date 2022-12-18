@@ -3,7 +3,7 @@
 
 <!-- Icons css-->
 <link href="{{ asset('assets/plugins/web-fonts/icons.css') }}" rel="stylesheet" />
-<link href="{{ asset('assets/plugins/web-fonts/font-awesome/font-awesome.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link href="{{ asset('assets/plugins/web-fonts/plugin.css') }}" rel="stylesheet" />
 
 <!-- Style css-->
@@ -27,3 +27,6 @@
 <link href="{{ asset('assets/plugins/datatable/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/plugins/datatable/responsivebootstrap4.min.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/plugins/datatable/fileexport/buttons.bootstrap4.min.css') }}" rel="stylesheet" />
+
+<!-- Internal Gallery css-->
+<link href="{{ asset('assets/plugins/gallery/gallery.css') }}" rel="stylesheet">

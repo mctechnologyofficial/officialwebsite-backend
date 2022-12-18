@@ -48,6 +48,13 @@ class RolePermissionSeeder extends Seeder
             'team_id'       => null,
         ], $default_user_value));
 
+        $leader = User::create(array_merge([
+            'name'          => 'Leader Developer MC',
+            'email'         => 'leader@mctechnologyofficial.com',
+            'password'      => Hash::make('password'),
+            'team_id'       => 1,
+        ], $default_user_value));
+
         $frontend = User::create(array_merge([
             'name'          => 'Frontend Developer MC',
             'email'         => 'frontend@mctechnologyofficial.com',
@@ -79,6 +86,7 @@ class RolePermissionSeeder extends Seeder
         $role_owner = Role::create(['name' => 'owner']);
         $role_admin = Role::create(['name' => 'admin']);
         $role_sales = Role::create(['name' => 'sales']);
+        $role_leader = Role::create(['name' => 'leader developer']);
         $role_frontend = Role::create(['name' => 'frontend developer']);
         $role_backend = Role::create(['name' => 'backend developer']);
         $role_mobile = Role::create(['name' => 'mobile developer']);
@@ -88,6 +96,7 @@ class RolePermissionSeeder extends Seeder
         $admin->assignRole('admin');
         $sales->assignRole('sales');
 
+        $leader->assignRole('leader developer');
         $frontend->assignRole('frontend developer');
         $backend->assignRole('backend developer');
         $mobile->assignRole('mobile developer');
