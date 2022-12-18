@@ -44,6 +44,7 @@ Route::group(['middleware' => ['role:admin']], function(){
         Route::prefix('member')->group(function(){
             Route::get('/', 'index')->name('admin.member.index');
             Route::get('/create', 'create')->name('admin.member.create');
+            Route::post('/store', 'store')->name('admin.member.store');
         });
     });
 });
