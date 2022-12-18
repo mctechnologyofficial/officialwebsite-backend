@@ -1,43 +1,49 @@
-<!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
-{{-- <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script> --}}
-<script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-<script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-<script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+<!-- Jquery js-->
+<script src="assets/plugins/jquery/jquery.min.js"></script>
 
-<script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-<!-- endbuild -->
+<!-- Bootstrap js-->
+<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Vendors JS -->
-<script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+<!-- Chart.Bundle js-->
+<script src="assets/plugins/chart.js/Chart.bundle.min.js"></script>
 
-<!-- Main JS -->
-<script src="{{ asset('assets/js/main.js') }}"></script>
+<!-- Peity js-->
+<script src="assets/plugins/peity/jquery.peity.min.js"></script>
 
-<!-- Page JS -->
-<script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+<!-- Flot Chart js-->
+<script src="assets/plugins/jquery.flot/jquery.flot.js"></script>
+<script src="assets/plugins/jquery.flot/jquery.flot.pie.js"></script>
+<script src="assets/plugins/jquery.flot/jquery.flot.resize.js"></script>
 
+<!-- Jquery-Ui js-->
+<script src="assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script>
 
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+<!-- Select2 js-->
+<script src="assets/plugins/select2/js/select2.min.js"></script>
 
-<script>
-    $(document).ready(function (){
-        $('#logout').on('click', function(){
-            $('#btnlogout').click();
-        });
+<!--MutipleSelect js-->
+<script src="assets/plugins/multipleselect/multiple-select.js"></script>
+<script src="assets/plugins/multipleselect/multi-select.js"></script>
 
-        $('#mytable').DataTable({
-            responsive: window.innerWidth < 1000 ? true : false,
-            searching: true,
-            paging: false,
-        });
+<!-- Internal Morris js -->
+<script src="assets/plugins/raphael/raphael.min.js"></script>
+<script src="assets/plugins/morris.js/morris.min.js"></script>
 
-        $('#mytable_filter').find('.form-control').css('height', '0px');
-    });
-</script>
+<!-- Sidebar js-->
+<script src="assets/plugins/sidebar/sidebar.js"></script>
+
+<!-- Perfect-scrollbar js-->
+<script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+
+<!-- Sticky js-->
+<script src="assets/js/sticky.js"></script>
+
+<!-- Circle Progress js-->
+<script src="assets/js/circle-progress.min.js"></script>
+<script src="assets/js/chart-circle.js"></script>
+
+<!-- Dashboard js-->
+<script src="assets/js/index.js"></script>
+
+<!-- Custom js-->
+<script src="assets/js/custom.js"></script>

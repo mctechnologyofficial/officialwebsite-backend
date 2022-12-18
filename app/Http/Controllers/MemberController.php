@@ -31,7 +31,7 @@ class MemberController extends Controller
      */
     public function create()
     {
-        //
+        return view('layouts.admin.member.add');
     }
 
     /**
@@ -42,7 +42,10 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attributes = $request->validate([
+            'name'      => 'required|string',
+            ''
+        ]);
     }
 
     /**

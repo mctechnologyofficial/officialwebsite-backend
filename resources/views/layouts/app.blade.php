@@ -1,54 +1,84 @@
 <!DOCTYPE html>
-<!-- beautify ignore:start -->
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets/') }}" data-template="vertical-menu-template-free">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-        <title>MC TECHNOLOGY | @yield('title')</title>
+<html lang="en">
 
-        @include('components.css')
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta name="description" content="Dashlead -  Admin Panel HTML Dashboard Template">
+    <meta name="author" content="Spruko Technologies Private Limited">
+    <meta name="keywords" content="admin,dashboard,panel,bootstrap admin template,bootstrap dashboard,dashboard,themeforest admin dashboard,themeforest admin,themeforest dashboard,themeforest admin panel,themeforest admin template,themeforest admin dashboard,cool admin,it dashboard,admin design,dash templates,saas dashboard,dmin ui design">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('assets/img/brand/favicon.ico') }}" type="image/x-icon" />
 
-    <body>
-        <!-- Layout wrapper -->
-        <div class="layout-wrapper layout-content-navbar">
-            <div class="layout-container">
-                <!-- Menu -->
-                @include('components.sidebar')
-                <!-- / Menu -->
+    <!-- Title -->
+    <title>MC TECHNOLOGY | @yield('title')</title>
 
-                <!-- Layout container -->
-                <div class="layout-page">
-                    <!-- Navbar -->
-                    @include('components.navbar')
-                    <!-- / Navbar -->
+    @include('components.css')
+</head>
 
-                    <!-- Content wrapper -->
-                    <div class="content-wrapper">
-                        <!-- Content -->
-                        <div class="container-xxl flex-grow-1 container-p-y">
-                            @yield('content')
-                        </div>
-                        <!-- / Content -->
+<body class="horizontalmenu dark-theme">
 
-                        <!-- Footer -->
-                            @include('components.footer')
-                        <!-- / Footer -->
+    <!-- Loader -->
+    <div id="global-loader">
+        <img src="{{ asset('assets/img/loader.svg') }}" class="loader-img" alt="Loader">
+    </div>
+    <!-- End Loader -->
 
-                        <div class="content-backdrop fade"></div>
+    <!-- Page -->
+    <div class="page">
+
+        @include('components.header')
+
+        @include('components.navbar')
+
+        <!-- Main Content-->
+        <div class="main-content pt-0">
+            <div class="container">
+
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div>
+                        <h2 class="main-content-title tx-24 mg-b-5">Welcome To Dashboard</h2>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Project Dashboard</li>
+                        </ol>
                     </div>
-                    <!-- / Content wrapper -->
+                    <div class="d-flex">
+                        <div class="justify-content-center">
+                            <button type="button" class="btn btn-white btn-icon-text my-2 mr-2">
+                                <i class="fe fe-download mr-2"></i> Import
+                            </button>
+                            <button type="button" class="btn btn-white btn-icon-text my-2 mr-2">
+                                <i class="fe fe-filter mr-2"></i> Filter
+                            </button>
+                            <button type="button" class="btn btn-primary my-2 btn-icon-text">
+                                <i class="fe fe-download-cloud mr-2"></i> Download Report
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <!-- / Layout page -->
+                <!-- End Page Header -->
+
+                @yield('content')
+
             </div>
-
-            <!-- Overlay -->
-            <div class="layout-overlay layout-menu-toggle"></div>
         </div>
-        <!-- / Layout wrapper -->
+        <!-- End Main Content-->
 
-        @include('components.js')
-    </body>
+        @include('components.sidebar')
+
+        @include('components.footer')
+
+    </div>
+    <!-- End Page -->
+
+    <!-- Back-to-top -->
+    <a href="#top" id="back-to-top"><i class="fe fe-arrow-up"></i></a>
+
+    @include('components.js')
+
+</body>
+
 </html>

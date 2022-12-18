@@ -43,6 +43,7 @@ Route::group(['middleware' => ['role:admin']], function(){
     Route::controller(MemberController::class)->group(function(){
         Route::prefix('member')->group(function(){
             Route::get('/', 'index')->name('admin.member.index');
+            Route::get('/create', 'create')->name('admin.member.create');
         });
     });
 });
