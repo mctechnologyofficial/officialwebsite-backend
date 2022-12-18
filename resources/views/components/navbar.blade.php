@@ -11,6 +11,9 @@
                     <li class="nav-sub-item">
                         <a class="nav-sub-link" href="{{ route('admin.member.index') }}">Members</a>
                     </li>
+                    <li class="nav-sub-item">
+                        <a class="nav-sub-link" href="{{ route('admin.team.index') }}">Our Teams</a>
+                    </li>
                 </ul>
             </li>
         </ul>

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Member')
+@section('title', 'team')
 
 @section('content')
 <div class="row row-sm">
@@ -7,34 +7,22 @@
         <div class="card custom-card overflow-hidden">
             <div class="card-body">
                 <div class="card-header mb-3 text-right pr-0">
-                    <a href="{{ route('admin.member.create') }}" class="btn btn-outline-success mb-3">+ Add New Member</a>
+                    <a href="{{ route('admin.team.create') }}" class="btn btn-outline-success mb-3">+ Add New Team</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="example1">
                         <thead>
                             <tr>
-                                <th class="wd-5p">#</th>
                                 <th class="wd-20p">Name</th>
-                                <th class="wd-20p">Email</th>
-                                <th class="wd-20p">Position</th>
-                                <th class="wd-20p">Team</th>
-                                <th class="wd-20p">Image</th>
                                 <th class="wd-20p">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($member as $key => $data)
+                            @foreach ($data as $d)
                                 <tr>
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ $data->email }}</td>
-                                    <td>{{ ucwords($data->roles->first()->name) }}</td>
-                                    <td>{{ $data->teamname }}</td>
-                                    <td align="center">
-                                        <img src="{{ asset($data->image) }}" alt="userimg" class="img-thumbnail w-100" />
-                                    </td>
+                                    <td>{{ $d->name }}</td>
                                     <td>
-                                        <a href="" class="btn btn-outline-info btn-block mb-2">Edit</a>
+                                        <a href="{{ route('admin.team.edit', $d->id) }}" class="btn btn-outline-info btn-block mb-2">Edit</a>
                                         <form action="" method="post">
                                             @csrf
                                             <button type="submit" class="btn btn-outline-danger btn-block">Delete</button>

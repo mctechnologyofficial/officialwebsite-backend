@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,20 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::get('/create', 'create')->name('admin.member.create');
         });
     });
+
+    // Teams Routes
+    Route::controller(TeamController::class)->group(function(){
+        Route::prefix('team')->group(function(){
+            Route::get('/', 'index')->name('admin.team.index');
+            Route::get('/create', 'create')->name('admin.team.create');
+            Route::post('/store', 'store')->name('admin.team.store');
+            Route::get('/edit/{id}', 'edit')->name('admin.team.edit');
+            Route::put('/update/{id}', 'update')->name('admin.team.update');
+            Route::delete('/delete/{id}', 'delete');
+        });
+    });
 });
+
+
 
 require __DIR__.'/auth.php';
