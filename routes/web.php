@@ -56,7 +56,7 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::post('/store', 'store')->name('admin.team.store');
             Route::get('/edit/{id}', 'edit')->name('admin.team.edit');
             Route::put('/update/{id}', 'update')->name('admin.team.update');
-            Route::delete('/delete/{id}', 'delete');
+            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
     });
 });

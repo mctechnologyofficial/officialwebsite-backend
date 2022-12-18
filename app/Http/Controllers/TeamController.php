@@ -100,6 +100,9 @@ class TeamController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attrs = Team::find($id);
+        $attrs->delete();
+
+        return redirect()->route('admin.team.index');
     }
 }
