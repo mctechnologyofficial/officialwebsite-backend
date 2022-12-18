@@ -2,7 +2,7 @@
 @section('title', 'Add Member')
 
 @section('content')
-    <div class="row row-sm">
+    <div class="row row-sm mb-3">
         <div class="col-lg-12">
             @if ($message = Session::get('success'))
                 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -42,41 +42,66 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" id="exampleInputEmail">
+                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail">
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="text" name="password" class="form-control" id="exampleInputPassword1">
+                            <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Position</label>
-                            <select name="position" class="form-control" id="exampleInputPassword1">
+                            <select name="position" class="form-control @error('position') is-invalid @enderror" id="exampleInputPassword1">
                                 <option value="" selected disabled>Choose position</option>
                                 @foreach ($role as $data)
-                                    <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                    <option value="{{ $data->id }}">{{ ucwords($data->name) }}</option>
                                 @endforeach
                             </select>
+                            @error('position')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Team</label>
-                            <select name="team_id" class="form-control" id="exampleInputPassword1">
+                            <select name="team_id" class="form-control @error('team_id') is-invalid @enderror" id="exampleInputPassword1">
                                 <option value="" selected disabled>Choose position</option>
                                 @foreach ($team as $data)
                                     <option value="{{ $data->id }}">{{ $data->name }}</option>
                                 @endforeach
                             </select>
+                            @error('team_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Image</label>
                             <img src="#" class="img-thumbnail w-25 my-3" id="image" />
                             <div class="input-group file-browser">
-                                <input type="text" class="form-control border-right-0 browse-file" placeholder="Choose image" readonly />
+                                <input type="text" class="form-control border-right-0 browse-file @error('image') is-invalid @enderror" placeholder="Choose image" readonly />
                                 <label class="input-group-btn">
                                     <span class="btn btn-primary">
                                         Browse <input type="file" style="display: none;" name="image" id="inputimage" accept="image/*" />
                                     </span>
                                 </label>
                             </div>
+                            @error('image')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-outline-primary">Submit</button>
                     </form>

@@ -98,7 +98,10 @@ class MemberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $member = User::find($id);
+        $role = Role::whereNot('name', 'owner')->get();
+        $team = Team::all();
+        return view('layouts.admin.member.edit', compact(['member', 'role', 'team']));
     }
 
     /**
@@ -110,7 +113,36 @@ class MemberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $attributes = $request->validate([
+            'name'      => 'required|string',
+            'email'     => 'required|email',
+            'position'  => 'required',
+            'team_id'   => 'required',
+            'image'     => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
+        ]);
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $filename = sprintf('%s_%s.%s', date('Y-m-d'), md5(microtime(true)), $file->extension());
+            unlink($user->image);
+            $image_path = $file->move('storage/users', $filename);
+        }else{
+            $image_path = $user->image;
+        }
+
+        $user->update([
+            'name'      => $attributes['name'],
+            'email'     => $attributes['email'],
+            'team_id'   => $attributes['team_id'],
+            'image'     => $image_path,
+        ]);
+
+        // assign role
+        $role = Role::find($attributes['position']);
+        $user->assignRole($role);
+
+        return redirect()->route('admin.member.edit', $id)->with('success', 'User has been updated successfully !');
     }
 
     /**
