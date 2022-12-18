@@ -255,8 +255,18 @@
             <h1 id="title">Sign In</h1>
             <form action="{{ route('login') }}" method="POST" class="form">
                 @csrf
-                <input type="email" name="email" placeholder="Enter your email" autocomplete="off">
-                <input type="password" name="password" placeholder="Enter your password" autocomplete="off">
+                <input type="email" class="@error('email') is-invalid @enderror" name="email" placeholder="Enter your email" autocomplete="off">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                <input type="password" class="@error('password') is-invalid @enderror" name="password" placeholder="Enter your password" autocomplete="off">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                 <button type="submit" id="login-button">Login</button>
             </form>
         </div>

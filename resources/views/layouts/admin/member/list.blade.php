@@ -6,6 +6,9 @@
     <div class="col-lg-12">
         <div class="card custom-card overflow-hidden">
             <div class="card-body">
+                <div class="card-header mb-3 text-right pr-0">
+                    <a href="{{ route('admin.member.create') }}" class="btn btn-outline-success mb-2">+ Add New Member</a>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="example1">
                         <thead>

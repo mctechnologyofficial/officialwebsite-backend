@@ -44,8 +44,8 @@
                     <div>
                         <h2 class="main-content-title tx-18 mg-b-5">MC TECHNOLOGY</h2>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Project Dashboard</li>
+                            <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">@yield('title')</li>
                         </ol>
                     </div>
                 </div>
