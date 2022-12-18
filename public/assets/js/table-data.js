@@ -1,6 +1,6 @@
 $(function() {
 	'use strict'
-	
+
 	//Data table example
 	var table = $('#exportexample').DataTable( {
 		lengthChange: false,
@@ -8,9 +8,10 @@ $(function() {
 	} );
 	table.buttons().container()
 	.appendTo( '#exportexample_wrapper .col-md-6:eq(0)' );
-	
-	
+
+
 	$('#example1').DataTable({
+        paging: false,
 		language: {
 			searchPlaceholder: 'Search...',
 			sSearch: '',
@@ -40,7 +41,7 @@ $(function() {
             }
         }
     } );
-	
+
 	/*Input Datatable*/
 	 var table = $('#example-input').DataTable({
       'columnDefs': [
@@ -90,12 +91,12 @@ $(function() {
           $('input', cell).removeProp('checked');
        }
    });
-   
+
    $('table').on('draw.dt', function() {
 		$('.select2-no-search').select2({
 			minimumResultsForSearch: Infinity,
 			placeholder: 'Choose one'
 		});
 	});
-	
+
 });

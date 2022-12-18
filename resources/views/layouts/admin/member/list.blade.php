@@ -2,62 +2,48 @@
 @section('title', 'Member')
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-end">
-                    <a href="{{ route('admin.member.create') }}" class="btn btn-outline-primary">+ Add New Member</a>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                        <table class="table table-hover table-bordered" id="mytable">
-                            <thead class="table-dark">
+<div class="row row-sm">
+    <div class="col-lg-12">
+        <div class="card custom-card overflow-hidden">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" id="example1">
+                        <thead>
+                            <tr>
+                                <th class="wd-5p">#</th>
+                                <th class="wd-20p">Name</th>
+                                <th class="wd-20p">Email</th>
+                                <th class="wd-20p">Position</th>
+                                <th class="wd-20p">Team</th>
+                                <th class="wd-20p">Image</th>
+                                <th class="wd-20p">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($member as $key => $data)
                                 <tr>
-                                    <th class="text-white">#</th>
-                                    <th class="text-white" data-priority='1'>Name</th>
-                                    <th class="text-white">Email</th>
-                                    <th class="text-white">Position</th>
-                                    <th class="text-white">Team Name</th>
-                                    <th class="text-white">Image</th>
-                                    <th class="text-white">Action</th>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->email }}</td>
+                                    <td>{{ ucwords($data->roles->first()->name) }}</td>
+                                    <td>{{ $data->teamname }}</td>
+                                    <td align="center">
+                                        <img src="{{ asset($data->image) }}" alt="userimg" class="img-thumbnail w-100" />
+                                    </td>
+                                    <td>
+                                        <a href="" class="btn btn-outline-info btn-block mb-2">Edit</a>
+                                        <form action="" method="post">
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-danger btn-block">Delete</button>
+                                        </form>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($member as $key => $data)
-                                    <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $data->name }}</td>
-                                        <td>{{ $data->email }}</td>
-                                        <td>{{ $data->roles->first()->name }}</td>
-                                        <td>{{ $data->teamname }}</td>
-                                        <td class="text-center">
-                                            <img src="{{ asset($data->image) }}" alt="image" class="img-thumbnail w-75">
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button class="btn p-0 dropdown-toggle hide-arrow" type="button" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-
-                                                <div class="dropdown-menu">
-                                                    <a href="#" class="dropdown-item">
-                                                        <i class="bx bx-edit-alt me-1"></i>
-                                                        Edit
-                                                    </a>
-                                                    <a href="#" class="dropdown-item">
-                                                        <i class="bx bx-trash me-1"></i>
-                                                        Delete
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

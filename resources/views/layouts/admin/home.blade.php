@@ -12,15 +12,13 @@
                     <div class="card bg-primary custom-card card-box">
                         <div class="card-body p-4">
                             <div class="row align-items-center">
-                                <div class="offset-lg-4 offset-sm-6 col-lg-8 col-sm-6 col-12 img-bg ">
+                                <div class="offset-lg-4 offset-sm-6 col-lg-8 col-sm-6 col-12">
                                     <h4 class="d-flex  mb-3">
-                                        <span class="font-weight-bold text-white ">Sonia Taylor!</span>
+                                        <span class="font-weight-bold text-white ">{{ Auth::user()->name }}</span>
                                     </h4>
-                                    <p class="tx-white-7 mb-1">You have two projects to finish, you had
-                                        completed <b class="text-warning">57%</b> from your montly level,
-                                        Keep going to your level
+                                    <p class="tx-white-7 mb-1">You have two projects to finish, you had completed <b class="text-warning">57%</b> from your montly level, Keep going to your level
                                 </div>
-                                <img src="../../assets/img/pngs/work3.png" alt="user-img">
+                                <img src="{{ asset('assets/img/pngs/work3.png') }}" alt="user-img">
                             </div>
                         </div>
                     </div>
@@ -738,4 +736,28 @@
             </div>
         </div><!-- col end -->
     </div><!-- Row end -->
+@endsection
+
+@section('js')
+<!-- Circle Progress js-->
+<script src="{{ asset('assets/js/circle-progress.min.js') }}"></script>
+<script src="{{ asset('assets/js/chart-circle.js') }}"></script>
+
+<!-- Internal Morris js -->
+<script src="{{ asset('assets/plugins/raphael/raphael.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/morris.js/morris.min.js') }}"></script>
+
+<!-- Chart.Bundle js-->
+<script src="{{ asset('assets/plugins/chart.js/Chart.bundle.min.js') }}"></script>
+
+<!-- Peity js-->
+<script src="{{ asset('assets/plugins/peity/jquery.peity.min.js') }}"></script>
+
+<!-- Flot Chart js-->
+<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.pie.js') }}"></script>
+<script src="{{ asset('assets/plugins/jquery.flot/jquery.flot.resize.js') }}"></script>
+
+<!-- Dashboard js-->
+<script src="{{ asset('assets/js/index.js') }}"></script>
 @endsection

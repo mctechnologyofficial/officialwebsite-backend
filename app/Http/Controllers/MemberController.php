@@ -19,7 +19,9 @@ class MemberController extends Controller
         ->whereHas( 'roles', function($query){
             $query->where('name', '!=', 'admin');
             $query->where('name', '!=', 'owner');
-        })->get();
+        })
+        ->orderBy('id', 'ASC')
+        ->get();
 
         return view('layouts.admin.member.list', compact(['member']));
     }
