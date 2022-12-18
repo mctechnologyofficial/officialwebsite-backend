@@ -45,6 +45,9 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::get('/', 'index')->name('admin.member.index');
             Route::get('/create', 'create')->name('admin.member.create');
             Route::post('/store', 'store')->name('admin.member.store');
+            Route::get('/{id}/edit', 'edit')->name('admin.member.edit');
+            Route::put('/{id}/update', 'update')->name('admin.member.update');
+            Route::delete('/{id}/destroy', 'destroy')->name('admin.member.destroy');
         });
     });
 });

@@ -59,13 +59,6 @@ class MemberController extends Controller
             'image'     => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
-        // $file = $request->image;
-        // $namewithextension = $file->getClientOriginalName(); //Name with extension 'filename.jpg'
-        // $name = explode('.', $namewithextension)[0]; // Filename 'filename'
-        // $extension = $file->getClientOriginalExtension(); //Extension 'jpg'
-        // $uploadname = date('Y-m-d H:i:s') . '_' . $name . '.' . $extension;
-        // $image_path = $file->move('storage/users', $uploadname);
-
         $file = $request->file('image');
         $filename = sprintf('%s_%s.%s', date('Y-m-d'), md5(microtime(true)), $file->extension());
         $image_path = $file->move('storage/users', $filename);
@@ -127,6 +120,8 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id', $id)->delete();
+
+        return redirect()->route('admin.member.index')->with('success', 'User has been deleted successfuly !');
     }
 }
