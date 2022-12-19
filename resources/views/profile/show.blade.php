@@ -36,7 +36,7 @@
                         <div class="profile-cover__action bg-img"></div>
                         <div class="profile-cover__info">
                             <ul class="nav">
-                                <li>@if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') <br><br> @else <strong>{{ $projecttotal }}</strong>Projects @endif</li>
+                                <li>@hasrole('admin|marketing|owner') <br><br> @endhasrole @hasrole('leader developer|frontend developer|backend developer|mobile developer|UI/UX designer') <strong>{{ $projecttotal }}</strong>Projects @endhasrole</li>
                             </ul>
                         </div>
                     </div>
@@ -45,9 +45,9 @@
                             @if(request()->routeIs('profile.index'))
                                 <a class="nav-link" data-toggle="tab" href="#edit">Edit Profile</a>
                             @endif
-                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#timeline">Timeline</a>
-                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#gallery">Project</a>
-                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#friends">Team</a>
+                            <a class="nav-link @hasrole('admin|marketing|owner') d-none @endhasrole" data-toggle="tab" href="#timeline">Timeline</a>
+                            <a class="nav-link @hasrole('admin|marketing|owner') d-none @endhasrole" data-toggle="tab" href="#gallery">Project</a>
+                            <a class="nav-link @hasrole('admin|marketing|owner') d-none @endhasrole" data-toggle="tab" href="#friends">Team</a>
                             <a class="nav-link" data-toggle="tab" href="#settings">Account Settings</a>
                         </nav>
                     </div>

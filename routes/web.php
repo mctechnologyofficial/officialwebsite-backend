@@ -91,11 +91,10 @@ Route::group(['middleware' => ['role:leader developer']], function(){
         // Project Routes
         Route::controller(LeaderProjectController::class)->group(function(){
             Route::get('/project', 'index')->name('leader.project.index');
-            Route::get('/project/create', 'create')->name('leader.project.create');
-            Route::post('/project/store', 'store')->name('leader.project.store');
-            Route::get('/project/edit/{id}', 'edit')->name('leader.project.edit');
+            Route::post('/project/manage/store', 'store')->name('leader.project.store');
+            Route::get('/project/manage/{id}', 'manage')->name('leader.project.manage');
+            Route::put('/project/edit/{id}', 'edit')->name('leader.project.edit');
             Route::put('/project/update/{id}', 'update')->name('leader.project.update');
-            Route::delete('/project/destroy/{id}', 'destroy')->name('leader.project.destroy');
         });
     });
 });

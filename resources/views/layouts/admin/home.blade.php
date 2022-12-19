@@ -5,7 +5,6 @@
     <!--Row-->
     <div class="row row-sm">
         <div class="col-sm-12 col-lg-12 col-xl-8">
-
             <!--Row-->
             <div class="row row-sm  mt-lg-4">
                 <div class="col-sm-12 col-lg-12 col-xl-12">

@@ -19,31 +19,37 @@
                         use App\Models\Project;
                         $totalproject = Project::where('team_id', Auth::user()->team_id)->where('status', 0)->count();
                     @endphp
-                    @if (Auth::user()->roles->first()->name == "leader developer")
-                        <span class="badge badge-danger nav-link-badge">{{ $totalproject }}</span>
-                    @endif
+                    @role('leader developer')
+                        @if ($totalproject > 0)
+                            <span class="badge badge-danger nav-link-badge">{{ $totalproject }}</span>
+                        @else
+                            {{-- do nothing --}}
+                        @endif
+                    @endrole
                 </a>
                 <div class="dropdown-menu">
                     @php
                         // use App\Models\Project;
-                        $project = Project::select('*')->orderBy('id', 'desc')->take(5)->get();
+                        $project = Project::select('*')->where('team_id', Auth::user()->team_id)->where('status', 0)->orderBy('id', 'desc')->take(5)->get();
                     @endphp
-                    @if (Auth::user()->roles->first()->name == "leader developer")
+                    @role('leader developer')
                         <div class="header-navheading">
                             <p class="main-notification-text">You have {{ $totalproject }} unread notification</p>
                         </div>
                         <div class="main-notification-list">
                             @foreach ($project as $data)
-                                <div class="media">
-                                    <div class="main-img-user online"><img alt="avatar" src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}"></div>
-                                    <div class="media-body">
-                                        <p><strong>{{ $data->name }}</strong> is waiting to be accepted</p>
-                                        <span>{{ $data->created_at }}</span>
+                                <a href="{{ route('leader.project.index') }}">
+                                    <div class="media">
+                                        <div class="main-img-user online"><img alt="avatar" src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}"></div>
+                                        <div class="media-body">
+                                            <p><strong>{{ $data->name }}</strong> is waiting to be accepted</p>
+                                            <span>{{ $data->created_at }}</span>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                             @endforeach
                         </div>
-                    @endif
+                    @endrole
                 </div>
             </div>
             <div class="main-header-notification">
@@ -70,16 +76,19 @@
                     <a class="dropdown-item border-top" href="{{ route('profile.index') }}">
                         <i class="fe fe-user"></i> My Profile
                     </a>
-                    @if (Auth::user()->roles->first()->name == "admin" || Auth::user()->roles->first()->name == "marketing" || Auth::user()->roles->first()->name == "owner")
-                        {{-- do nothing --}}
-                    @else
-                        <a class="dropdown-item" href="#">
+                    @role('leader developer')
+                        <a class="dropdown-item" href="{{ route('leader.project.index') }}">
+                            <i class="fe fe-folder"></i> Project
+                        </a>
+                    @endrole
+                    @hasrole('frontend developer|backend developer|mobile developer|UI/UX designer')
+                        <a class="dropdown-item" href="">
                             <i class="fe fe-folder"></i> Project
                         </a>
                         <a class="dropdown-item" href="#">
                             <i class="fe fe-list"></i> To-do List
                         </a>
-                    @endif
+                    @endhasrole
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <a class="dropdown-item logout" href="javascript:void(0)">

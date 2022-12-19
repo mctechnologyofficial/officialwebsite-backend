@@ -29,16 +29,12 @@
                 </script>
             @endif
             <div class="card-body">
-                <div class="card-header mb-3 text-right pr-0">
-                    <a href="{{ route('leader.project.create') }}" class="btn btn-outline-success mb-3">+ Add New Project</a>
-                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="example1">
                         <thead>
                             <tr>
                                 <th class="wd-5p">#</th>
                                 <th class="wd-20p">Project Name</th>
-                                <th class="wd-20p">Handle By</th>
                                 <th class="wd-20p">Github Repository URL</th>
                                 <th class="wd-20p">Image</th>
                                 <th class="wd-20p">Status</th>
@@ -46,7 +42,44 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($project as $key => $data)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $data->name }}</td>
+                                    <td>{{ $data->github_repository }}</td>
+                                    <td align="center">
+                                        <img src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}" alt="userimg" class="img-thumbnail w-100" />
+                                    </td>
+                                    <td align="center">
+                                        @if ($data->status == 0)
+                                            <span class="badge badge-warning">Waiting to be accepted</span>
+                                        @elseif ($data->status == 1)
+                                            <span class="badge badge-success">Accepted</span>
+                                        @else
+                                            <span class="badge badge-danger">Declined</span>
+                                        @endif
+                                    </td>
+                                    <td align="center">
+                                        @if ($data->status == 0)
+                                            <form action="{{ route('leader.project.update', $data->id) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-outline-success btn-block mb-2">Accept</button>
+                                            </form>
 
+                                            <form action="{{ route('leader.project.edit', $data->id) }}" method="post">
+                                                @csrf
+                                                @method('put')
+                                                <button type="submit" class="btn btn-outline-danger btn-block">Decline</button>
+                                            </form>
+                                        @elseif ($data->status == 1)
+                                            <a href="{{ route('leader.project.manage', $data->id) }}" class="btn btn-outline-info btn-block">Manage</a>
+                                        @else
+                                            &nbsp;
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
