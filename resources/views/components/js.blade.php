@@ -39,3 +39,17 @@
 <script src="{{ asset('assets/plugins/datatable/fileexport/buttons.print.min.js') }}"></script>
 <script src="{{ asset('assets/plugins/datatable/fileexport/buttons.colVis.min.js') }}"></script>
 <script src="{{ asset('assets/js/table-data.js') }}"></script>
+
+<!-- Internal Gallery js-->
+<script src="{{ asset('assets/plugins/gallery/picturefill.j') }}s"></script>
+<script src="{{ asset('assets/plugins/gallery/lightgallery.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lightgallery-1.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lg-pager.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lg-autoplay.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lg-fullscreen.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lg-zoom.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lg-hash.js') }}"></script>
+<script src="{{ asset('assets/plugins/gallery/lg-share.js') }}"></script>
+
+<!-- Icon Js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/js/all.min.js" integrity="sha512-rpLlll167T5LJHwp0waJCh3ZRf7pO6IT1+LZOhAyP6phAirwchClbTZV3iqL3BMrVxIYRbzGTpli4rfxsCK6Vw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

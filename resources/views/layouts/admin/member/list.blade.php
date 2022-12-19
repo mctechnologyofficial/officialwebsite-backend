@@ -4,7 +4,7 @@
 @section('content')
 <div class="row row-sm">
     <div class="col-lg-12">
-        <div class="card custom-card overflow-hidden">
+        <div class="card custom-card overflow-hidden mb-3">
             @if ($message = Session::get('success'))
                 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Leader;
 
 use App\Http\Controllers\Controller;
-use App\Models\Portofolio;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
-class PortofolioController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class PortofolioController extends Controller
      */
     public function index()
     {
-        $attrs = Portofolio::all();
-        return view('layouts.admin.portofolio.list', compact('attrs'));
+        $project = Project::all();
+
+        return view('layouts.leader.project.list', compact(['project']));
     }
 
     /**
@@ -26,7 +27,7 @@ class PortofolioController extends Controller
      */
     public function create()
     {
-        return view('layouts.admin.portofolio.add');
+        //
     }
 
     /**
@@ -37,25 +38,7 @@ class PortofolioController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->validate([
-            'name'              => 'required|string',
-            'company_name'      => 'required|string',
-            'description'       => 'required',
-            'image'             => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
-        ]);
-
-        $file = $request->file('image');
-        $filename = sprintf('%s_%s.%s', date('Y-m-d'), md5(microtime(true)), $file->extension());
-        $image_path = $file->move('storage/users', $filename);
-
-        Portofolio::create([
-            'name'              => $attributes['name'],
-            'company_name'      => $attributes['company_name'],
-            'description'       => $attributes['description'],
-            'image'             => $image_path,
-        ]);
-
-        return redirect()->route('admin.portofolio.create')->with('success', 'User has been saved successfully !');
+        //
     }
 
     /**

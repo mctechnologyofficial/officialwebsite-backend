@@ -15,42 +15,35 @@
             <div class="dropdown main-header-notification">
                 <a class="nav-link icon" href="">
                     <i class="fe fe-bell header-icons"></i>
-                    <span class="badge badge-danger nav-link-badge">4</span>
+                    @php
+                        use App\Models\Project;
+                        $totalproject = Project::where('team_id', Auth::user()->team_id)->where('status', 0)->count();
+                    @endphp
+                    @if (Auth::user()->roles->first()->name == "leader developer")
+                        <span class="badge badge-danger nav-link-badge">{{ $totalproject }}</span>
+                    @endif
                 </a>
                 <div class="dropdown-menu">
-                    <div class="header-navheading">
-                        <p class="main-notification-text">You have 1 unread notification<span
-                                class="badge badge-pill badge-primary ml-3">View all</span></p>
-                    </div>
-                    <div class="main-notification-list">
-                        <div class="media new">
-                            <div class="main-img-user online"><img alt="avatar"
-                                    src="assets/img/users/5.jpg"></div>
-                            <div class="media-body">
-                                <p>Congratulate <strong>Olivia James</strong> for New template start</p>
-                                <span>Oct 15 12:32pm</span>
-                            </div>
+                    @php
+                        // use App\Models\Project;
+                        $project = Project::select('*')->orderBy('id', 'desc')->take(5)->get();
+                    @endphp
+                    @if (Auth::user()->roles->first()->name == "leader developer")
+                        <div class="header-navheading">
+                            <p class="main-notification-text">You have {{ $totalproject }} unread notification</p>
                         </div>
-                        <div class="media">
-                            <div class="main-img-user"><img alt="avatar"
-                                    src="assets/img/users/2.jpg"></div>
-                            <div class="media-body">
-                                <p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13
-                                    02:56am</span>
-                            </div>
+                        <div class="main-notification-list">
+                            @foreach ($project as $data)
+                                <div class="media">
+                                    <div class="main-img-user online"><img alt="avatar" src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}"></div>
+                                    <div class="media-body">
+                                        <p><strong>{{ $data->name }}</strong> is waiting to be accepted</p>
+                                        <span>{{ $data->created_at }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                        <div class="media">
-                            <div class="main-img-user online"><img alt="avatar"
-                                    src="assets/img/users/3.jpg"></div>
-                            <div class="media-body">
-                                <p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12
-                                    10:40pm</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="dropdown-footer">
-                        <a href="#">View All Notifications</a>
-                    </div>
+                    @endif
                 </div>
             </div>
             <div class="main-header-notification">
@@ -74,21 +67,19 @@
                         <h6 class="main-notification-title">{{ Auth::user()->name }}</h6>
                         <p class="main-notification-text">{{ ucwords(Auth::user()->roles->first()->name) }}</p>
                     </div>
-                    <a class="dropdown-item border-top" href="profile.html">
+                    <a class="dropdown-item border-top" href="{{ route('profile.index') }}">
                         <i class="fe fe-user"></i> My Profile
                     </a>
-                    <a class="dropdown-item" href="profile.html">
-                        <i class="fe fe-edit"></i> Edit Profile
-                    </a>
-                    <a class="dropdown-item" href="profile.html">
-                        <i class="fe fe-settings"></i> Account Settings
-                    </a>
-                    <a class="dropdown-item" href="profile.html">
-                        <i class="fe fe-settings"></i> Support
-                    </a>
-                    <a class="dropdown-item" href="profile.html">
-                        <i class="fe fe-compass"></i> Activity
-                    </a>
+                    @if (Auth::user()->roles->first()->name == "admin" || Auth::user()->roles->first()->name == "marketing" || Auth::user()->roles->first()->name == "owner")
+                        {{-- do nothing --}}
+                    @else
+                        <a class="dropdown-item" href="#">
+                            <i class="fe fe-folder"></i> Project
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fe fe-list"></i> To-do List
+                        </a>
+                    @endif
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <a class="dropdown-item logout" href="javascript:void(0)">
