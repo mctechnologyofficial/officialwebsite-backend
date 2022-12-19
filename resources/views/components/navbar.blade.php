@@ -21,6 +21,11 @@
                     </ul>
                 </li>
             @endrole
+            @role('leader developer')
+                <li class="nav-item {{ request()->routeIs('leader.project.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('leader.project.index') }}"><i class="ti-folder"></i>Project</a>
+                </li>
+            @endrole
         </ul>
     </div>
 </div>

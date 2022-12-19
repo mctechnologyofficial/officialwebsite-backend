@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\Leader\ProjectController as LeaderProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,42 +46,55 @@ Route::group(['middleware' => ['role:admin']], function(){
 
     // Member Routes
     Route::controller(MemberController::class)->group(function(){
-        Route::prefix('member')->group(function(){
-            Route::get('/', 'index')->name('admin.member.index');
-            Route::get('/create', 'create')->name('admin.member.create');
-            Route::post('/store', 'store')->name('admin.member.store');
-            Route::get('/{id}/edit', 'edit')->name('admin.member.edit');
-            Route::put('/{id}/update', 'update')->name('admin.member.update');
-            Route::delete('/{id}/destroy', 'destroy')->name('admin.member.destroy');
+        Route::prefix('admin')->group(function(){
+            Route::get('/member', 'index')->name('admin.member.index');
+            Route::get('/member/create', 'create')->name('admin.member.create');
+            Route::post('/member/store', 'store')->name('admin.member.store');
+            Route::get('/member/{id}/edit', 'edit')->name('admin.member.edit');
+            Route::put('/member/{id}/update', 'update')->name('admin.member.update');
+            Route::delete('/member/{id}/destroy', 'destroy')->name('admin.member.destroy');
         });
     });
 
     // Team Routes
     Route::controller(TeamController::class)->group(function(){
-        Route::prefix('team')->group(function(){
-            Route::get('/', 'index')->name('admin.team.index');
-            Route::get('/create', 'create')->name('admin.team.create');
-            Route::post('/store', 'store')->name('admin.team.store');
-            Route::get('/edit/{id}', 'edit')->name('admin.team.edit');
-            Route::put('/update/{id}', 'update')->name('admin.team.update');
-            Route::delete('/destroy/{id}', 'destroy')->name('admin.team.destroy');
+        Route::prefix('admin')->group(function(){
+            Route::get('/team', 'index')->name('admin.team.index');
+            Route::get('/team/create', 'create')->name('admin.team.create');
+            Route::post('/team/store', 'store')->name('admin.team.store');
+            Route::get('/team/{id}/edit', 'edit')->name('admin.team.edit');
+            Route::put('/team/{id}/update', 'update')->name('admin.team.update');
+            Route::delete('/team/{id}/destroy', 'destroy')->name('admin.team.destroy');
         });
     });
 
     // Project Routes
     Route::controller(ProjectController::class)->group(function(){
-        Route::prefix('project')->group(function(){
-            Route::get('/', 'index')->name('admin.project.index');
-            Route::get('/create', 'create')->name('admin.project.create');
-            Route::post('/store', 'store')->name('admin.project.store');
-            Route::get('/edit/{id}', 'edit')->name('admin.project.edit');
-            Route::put('/update/{id}', 'update')->name('admin.project.update');
-            Route::delete('/destroy/{id}', 'destroy')->name('admin.project.destroy');
-            Route::get('/getuser', 'getUser');
+        Route::prefix('admin')->group(function(){
+            Route::get('/project', 'index')->name('admin.project.index');
+            Route::get('/project/create', 'create')->name('admin.project.create');
+            Route::post('/project/store', 'store')->name('admin.project.store');
+            Route::get('/project/edit/{id}', 'edit')->name('admin.project.edit');
+            Route::put('/project/update/{id}', 'update')->name('admin.project.update');
+            Route::delete('/project/destroy/{id}', 'destroy')->name('admin.project.destroy');
+            Route::get('/project/getuser', 'getUser');
         });
     });
 });
 
-
+Route::group(['middleware' => ['role:leader developer']], function(){
+    // Project Routes
+    Route::controller(LeaderProjectController::class)->group(function(){
+        Route::prefix('leader')->group(function(){
+            Route::get('/project', 'index')->name('leader.project.index');
+            Route::get('/project/create', 'create')->name('leader.project.create');
+            Route::post('/project/store', 'store')->name('leader.project.store');
+            Route::get('/project/edit/{id}', 'edit')->name('leader.project.edit');
+            Route::put('/project/update/{id}', 'update')->name('leader.project.update');
+            Route::delete('/project/destroy/{id}', 'destroy')->name('leader.project.destroy');
+            Route::get('/project/getuser', 'getUser');
+        });
+    });
+});
 
 require __DIR__.'/auth.php';
