@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Leader;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Todolist;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -15,19 +18,36 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $project = Project::all();
+        $project = Project::where('team_id', Auth::user()->team_id)->get();
 
         return view('layouts.leader.project.list', compact(['project']));
     }
 
     /**
-     * Show the form for creating a new resource.
      *
+     * Decline project
+     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function manage($id)
     {
-        //
+        $project = Project::find($id);
+        $member = User::where('team_id', Auth::user()->team_id)
+        ->whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'leader developer');
+        })
+        ->get();
+
+        $todolist = User::selectRaw('todolists.*, users.*, teams.name as teamname')
+        ->join('todolists', 'todolists.member_id', '=', 'users.id')
+        ->join('teams', 'teams.id', '=', 'todolists.team_id')
+        ->where('todolists.team_id', Auth::user()->team_id)
+        ->where('todolists.project_id', $project->id)
+        ->orderBy('todolists.id', 'desc')
+        ->get();
+
+        return view('layouts.leader.project.manage', compact(['project', 'todolist', 'member']));
     }
 
     /**
@@ -38,51 +58,55 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $attr = $request->validate([
+            'project_id'    => 'required',
+            'member_id'     => 'required',
+            'task'          => 'required'
+        ]);
+
+        Todolist::create([
+            'team_id'       => Auth::user()->team_id,
+            'project_id'    => $attr['project_id'],
+            'member_id'     => $attr['member_id'],
+            'task'          => $attr['task'],
+            'status'        => 0
+        ]);
+
+        return redirect()->route('leader.project.manage', $request->project_id)->with('success', 'Task has been saved successfully !');
     }
 
     /**
-     * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
+     * Decline project
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $project = Project::find($id);
+
+        $project->update([
+            'status'    => 2
+        ]);
+
+        return redirect()->route('leader.project.index')->with('success', 'You declined the project !');
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
+     * Accept project
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function update($id)
     {
-        //
+        $project = Project::find($id);
+
+        $project->update([
+            'status'    => 1
+        ]);
+
+        return redirect()->route('leader.project.index')->with('success', 'You accepted the project !');
     }
 }

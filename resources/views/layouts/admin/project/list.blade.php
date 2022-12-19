@@ -55,7 +55,7 @@
                                     <td align="center">
                                         <img src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}" alt="userimg" class="img-thumbnail w-100" />
                                     </td>
-                                    <td>
+                                    <td align="center">
                                         @if ($data->status == 0)
                                             <span class="badge badge-warning">Waiting to be accepted</span>
                                         @elseif ($data->status == 1)
