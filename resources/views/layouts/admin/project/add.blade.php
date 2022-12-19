@@ -154,7 +154,7 @@
 
         $('#teamid').on('change', function(){
             $.ajax({
-                url: '/project/getuser',
+                url: '/admin/project/getuser',
                 type: 'GET',
                 data: {
                     _token: CSRF_TOKEN,

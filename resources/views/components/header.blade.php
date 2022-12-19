@@ -15,12 +15,20 @@
             <div class="dropdown main-header-notification">
                 <a class="nav-link icon" href="">
                     <i class="fe fe-bell header-icons"></i>
-                    {{-- @if (Auth::user()->roles->first()->name == "leader developer")
+                    @php
+                        use App\Models\Project;
+                        $totalproject = Project::where('team_id', Auth::user()->team_id)->where('status', 0)->count();
+                    @endphp
+                    @if (Auth::user()->roles->first()->name == "leader developer")
                         <span class="badge badge-danger nav-link-badge">{{ $totalproject }}</span>
-                    @endif --}}
+                    @endif
                 </a>
                 <div class="dropdown-menu">
-                    {{-- @if (Auth::user()->roles->first()->name == "leader developer")
+                    @php
+                        // use App\Models\Project;
+                        $project = Project::select('*')->orderBy('id', 'desc')->take(5)->get();
+                    @endphp
+                    @if (Auth::user()->roles->first()->name == "leader developer")
                         <div class="header-navheading">
                             <p class="main-notification-text">You have {{ $totalproject }} unread notification</p>
                         </div>
@@ -35,7 +43,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    @endif --}}
+                    @endif
                 </div>
             </div>
             <div class="main-header-notification">

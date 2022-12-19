@@ -20,6 +20,9 @@ class HomeController extends Controller
         } else if ($request->user()->hasRole('sales')) {
             return view('layouts.sales.home');
         } else if ($request->user()->hasRole('leader developer')) {
+            // $totalproject = Project::where('team_id', Auth::user()->team_id)->where('status', 0)->count();
+            // $project = Project::select('*')->orderBy('id', 'desc')->take(5)->get();
+
             return view('layouts.leader.home');
         } else if ($request->user()->hasRole('frontend developer|backend developer|mobile developer|UI/UX designer')) {
             return view('layouts.developer.home');

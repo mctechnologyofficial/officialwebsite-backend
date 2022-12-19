@@ -39,7 +39,11 @@ class ProfileController extends Controller
     {
         $user = User::find($id);
         $team = User::where('team_id', $request->user()->team_id)->get();
-        return view('profile.show', compact(['user', 'team']));
+
+        $project  = Project::all();
+        $projecttotal = Project::where('team_id', Auth::user()->team_id)->count();
+
+        return view('profile.show', compact(['user', 'team', 'project', 'projecttotal']));
     }
 
     /**

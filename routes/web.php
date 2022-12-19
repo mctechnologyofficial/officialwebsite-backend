@@ -43,10 +43,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::group(['middleware' => ['role:admin']], function(){
+    Route::prefix('admin')->group(function(){
 
-    // Member Routes
-    Route::controller(MemberController::class)->group(function(){
-        Route::prefix('admin')->group(function(){
+        // Member Routes
+        Route::controller(MemberController::class)->group(function(){
             Route::get('/member', 'index')->name('admin.member.index');
             Route::get('/member/create', 'create')->name('admin.member.create');
             Route::post('/member/store', 'store')->name('admin.member.store');
@@ -54,11 +54,9 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::put('/member/{id}/update', 'update')->name('admin.member.update');
             Route::delete('/member/{id}/destroy', 'destroy')->name('admin.member.destroy');
         });
-    });
 
-    // Team Routes
-    Route::controller(TeamController::class)->group(function(){
-        Route::prefix('admin')->group(function(){
+        // Team Routes
+        Route::controller(TeamController::class)->group(function(){
             Route::get('/team', 'index')->name('admin.team.index');
             Route::get('/team/create', 'create')->name('admin.team.create');
             Route::post('/team/store', 'store')->name('admin.team.store');
@@ -66,11 +64,9 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::put('/team/{id}/update', 'update')->name('admin.team.update');
             Route::delete('/team/{id}/destroy', 'destroy')->name('admin.team.destroy');
         });
-    });
 
-    // Project Routes
-    Route::controller(ProjectController::class)->group(function(){
-        Route::prefix('admin')->group(function(){
+        // Project Routes
+        Route::controller(ProjectController::class)->group(function(){
             Route::get('/project', 'index')->name('admin.project.index');
             Route::get('/project/create', 'create')->name('admin.project.create');
             Route::post('/project/store', 'store')->name('admin.project.store');
@@ -83,16 +79,15 @@ Route::group(['middleware' => ['role:admin']], function(){
 });
 
 Route::group(['middleware' => ['role:leader developer']], function(){
-    // Project Routes
-    Route::controller(LeaderProjectController::class)->group(function(){
-        Route::prefix('leader')->group(function(){
+    Route::prefix('leader')->group(function(){
+        // Project Routes
+        Route::controller(LeaderProjectController::class)->group(function(){
             Route::get('/project', 'index')->name('leader.project.index');
             Route::get('/project/create', 'create')->name('leader.project.create');
             Route::post('/project/store', 'store')->name('leader.project.store');
             Route::get('/project/edit/{id}', 'edit')->name('leader.project.edit');
             Route::put('/project/update/{id}', 'update')->name('leader.project.update');
             Route::delete('/project/destroy/{id}', 'destroy')->name('leader.project.destroy');
-            Route::get('/project/getuser', 'getUser');
         });
     });
 });
