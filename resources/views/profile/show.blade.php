@@ -9,7 +9,10 @@
                     <div class="panel profile-cover">
                         <div class="profile-cover__img">
                             <img id="usrimg" src="{{ asset($user->image) }}" alt="img" />
-                            <input type="file" name="image" id="inputimg" class="d-none" accept="image/*" />
+                            <form id="formimage" action="{{ route('profile.updateimage') }}" enctype="multipart/form-data" method="post">
+                                @csrf
+                                <input type="file" name="image" id="inputimg" class="d-none" accept="image/*" />
+                            </form>
                             <h3 class="h3">{{ $user->name }}</h3>
                             <h5 class="text-muted">{{ ucwords($user->roles->first()->name) }}</h5>
                         </div>
@@ -585,10 +588,30 @@
                                 <div class="form-group ">
                                     <div class="row row-sm">
                                         <div class="col-md-3">
+                                            <label class="form-label">Current Password</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" name="currentpassword" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="row row-sm">
+                                        <div class="col-md-3">
                                             <label class="form-label">New Password</label>
                                         </div>
                                         <div class="col-md-9">
                                             <input type="text" name="password" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="row row-sm">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Confirm Password</label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" name="c_password" class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -638,6 +661,8 @@
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <script>
         $(document).ready(function(){
+            $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+
             $('#textdeactive').on('click', function(){
                 $('#deactive').click();
             });
@@ -658,8 +683,25 @@
                 }
             }
 
-            $("#inputimg").change(function(){
+            $("#inputimg").change(function(e){
                 readURL(this);
+                let data = e.target.files[0];
+                var formData = new FormData();
+                formData.append('image', data);
+
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('profile.updateimage') }}",
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (response) => {
+                        if (response) {
+                            alert('Image has been uploaded successfully');
+                        }
+                    }
+                });
             });
         });
     </script>

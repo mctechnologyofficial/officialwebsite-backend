@@ -16221,6 +16221,10 @@ ul.inbox-pagination {
     }
 }
 
+/* .profile-cover__info>.nav>li>br{
+    display: none;
+} */
+
 .profile-cover__info .nav li {
     margin-top: 13px;
     margin-bottom: 13px;
@@ -16646,7 +16650,7 @@ ul.inbox-pagination {
 
     .btn-profile {
         right: 0;
-        bottom: 340px;
+        bottom: 420px;
         left: 0;
         margin: 0 auto;
         text-align: center;
