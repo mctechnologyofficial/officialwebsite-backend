@@ -2,9 +2,12 @@
 
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\MemberController;
+use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\Admin\PortofolioController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TeamController;
+use App\Http\Controllers\Admin\TeamController;
+use App\Models\Portfolio;
+use App\Models\Portofolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +66,14 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::delete('/destroy/{id}', 'destroy')->name('destroy');
         });
     });
+
+    Route::controller(PortofolioController::class)->group(function(){
+        Route::prefix('portofolio')->group(function() {
+            Route::get('/', 'index')->name('admin.portofolio.index');
+            Route::get('/create', 'create')->name('admin.portofolio.create');
+        });
+    });
+
 });
 
 

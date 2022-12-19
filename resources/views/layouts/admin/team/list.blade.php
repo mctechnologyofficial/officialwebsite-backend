@@ -24,7 +24,7 @@
                                     <td>{{ $d->name }}</td>
                                     <td>
                                         <a href="{{ route('admin.team.edit', $d->id) }}" class="btn btn-outline-info btn-block mb-2">Edit</a>
-                                        <form action="{{ route('destroy', $d->id) }}" method="POST">
+                                        <form action="{{ route('destroy', $d->id) }}"onsubmit="return confirm('are you sure for delete this?')"  method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-outline-danger btn-block">Delete</button>
