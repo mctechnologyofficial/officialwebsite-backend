@@ -36,7 +36,7 @@
                         <div class="profile-cover__action bg-img"></div>
                         <div class="profile-cover__info">
                             <ul class="nav">
-                                <li>@if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'sales' || Auth::user()->roles->first()->name == 'owner') <br><br> @else <strong>0</strong>Projects @endif</li>
+                                <li>@if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') <br><br> @else <strong>{{ $projecttotal }}</strong>Projects @endif</li>
                             </ul>
                         </div>
                     </div>
@@ -45,9 +45,9 @@
                             @if(request()->routeIs('profile.index'))
                                 <a class="nav-link" data-toggle="tab" href="#edit">Edit Profile</a>
                             @endif
-                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'sales' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#timeline">Timeline</a>
-                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'sales' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#gallery">Gallery</a>
-                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'sales' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#friends">Teams</a>
+                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#timeline">Timeline</a>
+                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#gallery">Project</a>
+                            <a class="nav-link @if(Auth::user()->roles->first()->name == 'admin' || Auth::user()->roles->first()->name == 'marketing' || Auth::user()->roles->first()->name == 'owner') d-none @endif" data-toggle="tab" href="#friends">Team</a>
                             <a class="nav-link" data-toggle="tab" href="#settings">Account Settings</a>
                         </nav>
                     </div>
@@ -492,53 +492,14 @@
                         <div class="card-body border">
                             <div class="demo-gallery">
                                 <ul id="lightgallery" class="list-unstyled row row-sm">
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/1.jpg"
-                                        data-src="../../assets/img/media/1.jpg" data-sub-html="<h4>Gallery Image 1</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4 wd-100p"
-                                                src="../../assets/img/media/1.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/2.jpg"
-                                        data-src="../../assets/img/media/2.jpg" data-sub-html="<h4>Gallery Image 2</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4"
-                                                src="../../assets/img/media/2.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/3.jpg"
-                                        data-src="../../assets/img/media/3.jpg" data-sub-html="<h4>Gallery Image 3</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4"
-                                                src="../../assets/img/media/3.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/4.jpg"
-                                        data-src="../../assets/img/media/4.jpg" data-sub-html="<h4>Gallery Image 4</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4"
-                                                src="../../assets/img/media/4.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/5.jpg"
-                                        data-src="../../assets/img/media/5.jpg" data-sub-html="<h4>Gallery Image 5</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4"
-                                                src="../../assets/img/media/5.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/6.jpg"
-                                        data-src="../../assets/img/media/6.jpg" data-sub-html="<h4>Gallery Image 6</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4"
-                                                src="../../assets/img/media/6.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/7.jpg"
-                                        data-src="../../assets/img/media/7.jpg" data-sub-html="<h4>Gallery Image 7</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4 mb-lg-0"
-                                                src="../../assets/img/media/7.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/8.jpg"
-                                        data-src="../../assets/img/media/8.jpg" data-sub-html="<h4>Gallery Image 8</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4 mb-lg-0"
-                                                src="../../assets/img/media/8.jpg" alt="Thumb-1"> </a>
-                                    </li>
-                                    <li class="col-sm-6 col-lg-4" data-responsive="../../assets/img/media/9.jpg"
-                                        data-src="../../assets/img/media/9.jpg" data-sub-html="<h4>Gallery Image 9</h4>">
-                                        <a href="" class="wd-100p"><img class="img-responsive mb-4 mb-lg-0"
-                                                src="../../assets/img/media/9.jpg" alt="Thumb-1"> </a>
-                                    </li>
+                                    @foreach ($project as $data)
+                                        <li class="col-sm-6 col-lg-4" data-responsive="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}" data-src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}" data-sub-html="<h4>{{ $data->name }}</h4>">
+                                            <a href="javascript:void(0)" class="wd-100p">
+                                                <img class="img-thumbnail mb-4 wd-100p" src="{{ asset($data->image != null ? $data->image : 'assets/img/media/1.jpg') }}" alt="Thumb-1">
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
-                                <!-- /Gallery -->
                             </div>
                         </div>
                     </div>

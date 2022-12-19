@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,11 @@ class ProfileController extends Controller
     {
         $user = User::find($request->user()->id);
         $team = User::where('team_id', $request->user()->team_id)->get();
-        return view('profile.show', compact(['user', 'team']));
+
+        $project  = Project::all();
+        $projecttotal = Project::where('team_id', Auth::user()->team_id)->count();
+
+        return view('profile.show', compact(['user', 'team', 'project', 'projecttotal']));
     }
 
     /**

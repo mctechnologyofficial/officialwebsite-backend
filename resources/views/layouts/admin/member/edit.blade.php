@@ -67,7 +67,7 @@
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Team</label>
                             <select name="team_id" class="form-control @error('team_id') is-invalid @enderror" id="exampleInputPassword1">
-                                <option value="" selected disabled>Choose position</option>
+                                <option value="" selected disabled>Choose team</option>
                                 @foreach ($team as $data)
                                     <option value="{{ $data->id }}" @if($member->team_id == $data->id) selected @endif>{{ $data->name }}</option>
                                 @endforeach
@@ -127,7 +127,7 @@
                             <label for="exampleInputPassword1" class="form-label">Image</label>
                             <img src="{{ asset($member->image) }}" class="img-thumbnail w-25 my-3" id="image" />
                             <div class="input-group file-browser">
-                                <input type="text" class="form-control border-right-0 browse-file @error('image') is-invalid @enderror" placeholder="Choose image" readonly />
+                                <input id="textfile" type="text" class="form-control border-right-0 browse-file @error('image') is-invalid @enderror" placeholder="Choose image" readonly />
                                 <label class="input-group-btn">
                                     <span class="btn btn-primary">
                                         Browse <input type="file" style="display: none;" name="image" id="inputimage" accept="image/*" />
@@ -164,6 +164,8 @@
 
         $("#inputimage").change(function(){
             readURL(this);
+            var filename = $(this).val().replace(/C:\\fakepath\\/i, '')
+            $('#textfile').val(filename);
         });
     </script>
 @endsection

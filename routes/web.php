@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TeamController;
 use Illuminate\Http\Request;
@@ -54,7 +55,7 @@ Route::group(['middleware' => ['role:admin']], function(){
         });
     });
 
-    // Teams Routes
+    // Team Routes
     Route::controller(TeamController::class)->group(function(){
         Route::prefix('team')->group(function(){
             Route::get('/', 'index')->name('admin.team.index');
@@ -62,7 +63,20 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::post('/store', 'store')->name('admin.team.store');
             Route::get('/edit/{id}', 'edit')->name('admin.team.edit');
             Route::put('/update/{id}', 'update')->name('admin.team.update');
-            Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+            Route::delete('/destroy/{id}', 'destroy')->name('admin.team.destroy');
+        });
+    });
+
+    // Project Routes
+    Route::controller(ProjectController::class)->group(function(){
+        Route::prefix('project')->group(function(){
+            Route::get('/', 'index')->name('admin.project.index');
+            Route::get('/create', 'create')->name('admin.project.create');
+            Route::post('/store', 'store')->name('admin.project.store');
+            Route::get('/edit/{id}', 'edit')->name('admin.project.edit');
+            Route::put('/update/{id}', 'update')->name('admin.project.update');
+            Route::delete('/destroy/{id}', 'destroy')->name('admin.project.destroy');
+            Route::get('/getuser', 'getUser');
         });
     });
 });

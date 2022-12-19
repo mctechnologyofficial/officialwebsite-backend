@@ -77,12 +77,16 @@
                     <a class="dropdown-item border-top" href="{{ route('profile.index') }}">
                         <i class="fe fe-user"></i> My Profile
                     </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fe fe-folder"></i> Project
-                    </a>
-                    <a class="dropdown-item" href="#">
-                        <i class="fe fe-list"></i> To-do List
-                    </a>
+                    @if (Auth::user()->roles->first()->name == "admin" || Auth::user()->roles->first()->name == "marketing" || Auth::user()->roles->first()->name == "owner")
+                        {{-- do nothing --}}
+                    @else
+                        <a class="dropdown-item" href="#">
+                            <i class="fe fe-folder"></i> Project
+                        </a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fe fe-list"></i> To-do List
+                        </a>
+                    @endif
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <a class="dropdown-item logout" href="javascript:void(0)">

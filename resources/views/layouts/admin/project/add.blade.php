@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Add Member')
+@section('title', 'Add Project')
 
 @section('content')
     <div class="row row-sm mb-3">
@@ -29,10 +29,10 @@
             @endif
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('admin.member.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
+                    <form action="{{ route('admin.project.store') }}" method="POST" enctype="multipart/form-data" autocomplete="off">
                         @csrf
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Name</label>
+                            <label for="exampleInputPassword1" class="form-label">Project Name</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="exampleInputPassword1">
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
@@ -41,42 +41,18 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail">
-                            @error('email')
+                            <label for="exampleInputEmail1" class="form-label">Programming Language</label>
+                            <input type="text" name="programming_language" class="form-control @error('programming_language') is-invalid @enderror" id="exampleInputEmail">
+                            @error('programming_language')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="text" name="password" class="form-control @error('password') is-invalid @enderror" id="exampleInputPassword1">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Position</label>
-                            <select name="position" class="form-control @error('position') is-invalid @enderror" id="exampleInputPassword1">
-                                <option value="" selected disabled>Choose position</option>
-                                @foreach ($role as $data)
-                                    <option value="{{ $data->id }}">{{ ucwords($data->name) }}</option>
-                                @endforeach
-                            </select>
-                            @error('position')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Team</label>
-                            <select name="team_id" class="form-control @error('team_id') is-invalid @enderror" id="exampleInputPassword1">
+                            <label for="exampleInputPassword1" class="form-label">Handle By Team</label>
+                            <select name="team_id" id="teamid" class="form-control @error('team_id') is-invalid @enderror" id="exampleInputPassword1">
                                 <option value="" selected disabled>Choose team</option>
-                                <option value="">None</option>
                                 @foreach ($team as $data)
                                     <option value="{{ $data->id }}">{{ $data->name }}</option>
                                 @endforeach
@@ -88,45 +64,19 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Github URL</label>
-                            <input type="text" name="github_url" class="form-control @error('github_url') is-invalid @enderror" id="exampleInputPassword1">
-                            @error('github_url')
+                            <label for="exampleInputPassword1" class="form-label">Leader</label>
+                            <input type="hidden" name="leader_id" id="leaderid">
+                            <input type="text" id="leadername" class="form-control @error('leader_id') is-invalid @enderror" id="exampleInputPassword1" readonly />
+                            @error('leader_id')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Facebook URL</label>
-                            <input type="text" name="facebook_url" class="form-control @error('facebook_url') is-invalid @enderror" id="exampleInputPassword1">
-                            @error('facebook_url')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Twitter URL</label>
-                            <input type="text" name="twitter_url" class="form-control @error('twitter_url') is-invalid @enderror" id="exampleInputPassword1">
-                            @error('twitter_url')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Instagram URL</label>
-                            <input type="text" name="instagram_url" class="form-control @error('instagram_url') is-invalid @enderror" id="exampleInputPassword1">
-                            @error('instagram_url')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">LinkedIn URL</label>
-                            <input type="text" name="linkedin_url" class="form-control @error('linkedin_url') is-invalid @enderror" id="exampleInputPassword1">
-                            @error('linkedin_url')
+                            <label for="exampleInputPassword1" class="form-label">Github Repository URL</label>
+                            <input type="text" name="github_repository" class="form-control @error('github_repository') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('github_repository')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -159,6 +109,8 @@
 
 @section('js')
     <script>
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -171,10 +123,48 @@
             }
         }
 
+        function createUser(response) {
+            var len = 0;
+            $("#leaderid").val('');
+            $("#leadername").val('');
+
+            if(response['data'] != null){
+                len = response['data'].length;
+            }
+
+            if(len > 0){
+                for(var i = 0; i < len; i++){
+                    var id = response['data'][i].id;
+                    var name = response['data'][i].name;
+
+                    $("#leaderid").val(id);
+                    $("#leadername").val(name);
+                }
+            }else{
+                $("#leaderid").val('');
+                $("#leadername").val('');
+            }
+        }
+
         $("#inputimage").change(function(){
             readURL(this);
             var filename = $(this).val().replace(/C:\\fakepath\\/i, '')
             $('#textfile').val(filename);
+        });
+
+        $('#teamid').on('change', function(){
+            $.ajax({
+                url: '/project/getuser',
+                type: 'GET',
+                data: {
+                    _token: CSRF_TOKEN,
+                    teamid: $(this).val()
+                },
+                dataType: 'json',
+                success: function(response){
+                    createUser(response);
+                }
+            });
         });
     </script>
 @endsection
