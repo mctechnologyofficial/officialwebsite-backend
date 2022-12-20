@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\MemberController;
+use App\Http\Controllers\Admin\PortfolioController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\PortofolioController;
 use App\Http\Controllers\Leader\ProjectController as LeaderProjectController;
@@ -78,10 +79,8 @@ Route::group(['middleware' => ['role:admin']], function(){
         });
 
         // Portfolio
-        Route::controller(PortofolioController::class)->group(function(){
-            Route::get('/portfolio', 'index')->name('admin.portofolio.index');
-            Route::get('/portfolio/create', 'create')->name('admin.portofolio.create');
-            Route::post('/portfolio/store', 'store')->name('admin.portfolio.store');
+        Route::controller(PortfolioController::class)->group(function() {
+            Route::get('/portfolio', 'index')->name('admin.portfolio.index');
         });
     });
 });

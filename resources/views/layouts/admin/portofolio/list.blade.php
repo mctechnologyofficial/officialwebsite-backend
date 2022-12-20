@@ -45,7 +45,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @   foreach ($attributes as $key => $data)
+                            @foreach ($attributes as $key => $data)
                                 <tr>
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $data->name }}</td>
