@@ -53,9 +53,15 @@
                 </div>
             </div>
             <div class="main-header-notification">
-                <a class="nav-link icon" href="chat.html">
+                <a class="nav-link icon" href="{{ route('chat.index') }}">
                     <i class="fe fe-message-square header-icons"></i>
-                    <span class="badge badge-success nav-link-badge">6</span>
+                    @php
+                        use App\Models\Chat;
+                        $unreadmessage = Chat::where('to_id', Auth::user()->id)->where('status', 0)->count();
+                    @endphp
+                    @if ($unreadmessage > 0)
+                        <span class="badge badge-danger nav-link-badge" id="totalmessage">{{ $unreadmessage }}</span>
+                    @endif
                 </a>
             </div>
             <div class="dropdown d-md-flex">

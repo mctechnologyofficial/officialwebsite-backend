@@ -42,6 +42,7 @@
                                 <th class="wd-20p">Position</th>
                                 <th class="wd-20p">Team</th>
                                 <th class="wd-20p">Image</th>
+                                <th class="wd-10p">Status</th>
                                 <th class="wd-20p">Action</th>
                             </tr>
                         </thead>
@@ -55,6 +56,13 @@
                                     <td>{{ $data->teamname }}</td>
                                     <td align="center">
                                         <img src="{{ asset($data->image) }}" alt="userimg" class="img-thumbnail w-100" />
+                                    </td>
+                                    <td align="center">
+                                        @if(Cache::has('user-is-online-' . $data->id))
+                                            <span class="badge badge-success">Online</span>
+                                        @else
+                                            <span class="badge badge-danger">Offline</span>
+                                        @endif
                                     </td>
                                     <td>
                                         <a href="{{ route('admin.member.edit', $data->id) }}" class="btn btn-outline-info btn-block mb-2">Edit</a>

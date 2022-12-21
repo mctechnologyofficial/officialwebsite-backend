@@ -28,6 +28,7 @@ class User extends Authenticatable
         'twitter_url',
         'instagram_url',
         'linkedin_url',
+        'last_seen',
         'image',
     ];
 

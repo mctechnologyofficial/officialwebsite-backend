@@ -619,7 +619,8 @@
 @endsection
 
 @section('js')
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
         $(document).ready(function(){
             $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
@@ -658,8 +659,23 @@
                     contentType: false,
                     processData: false,
                     success: (response) => {
-                        if (response) {
-                            alert('Image has been uploaded successfully');
+                        if(response) {
+                            Toastify({
+                                avatar: "{{ asset('assets/img/brand/logo-mc.png') }}",
+                                text: "Image has been updated successfully !",
+                                duration: 5000,
+                                destination: "https://github.com/apvarun/toastify-js",
+                                newWindow: true,
+                                close: true,
+                                gravity: "bottom", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "#49b462",
+                                    color: '#fff',
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
                         }
                     }
                 });

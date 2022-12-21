@@ -20,10 +20,11 @@ class MemberController extends Controller
     public function index()
     {
         $member = User::selectRaw('users.*, teams.name AS teamname')
-        ->join('teams', 'teams.id', '=', 'users.team_id')
+        ->leftJoin('teams', 'teams.id', '=', 'users.team_id')
+        // ->whereNotNull('users.last_seen')
         ->whereHas('roles', function ($query) {
-            $query->where('name', '!=', 'admin');
-            $query->where('name', '!=', 'owner');
+            $query->where('name','!=', 'owner');
+            $query->where('name','!=', 'admin');
         })
         ->orderBy('id', 'ASC')
         ->get();
@@ -57,11 +58,11 @@ class MemberController extends Controller
             'password'          => 'required|string',
             'position'          => 'required',
             'team_id'           => '',
-            'github_url'        => 'string',
-            'facebook_url'      => 'string',
-            'twitter_url'       => 'string',
-            'instagram_url'     => 'string',
-            'linkedin_url'      => 'string',
+            'github_url'        => '',
+            'facebook_url'      => '',
+            'twitter_url'       => '',
+            'instagram_url'     => '',
+            'linkedin_url'      => '',
             'image'             => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 
@@ -130,11 +131,11 @@ class MemberController extends Controller
             'email'             => 'required|email',
             'position'          => 'required',
             'team_id'           => '',
-            'github_url'        => 'string',
-            'facebook_url'      => 'string',
-            'twitter_url'       => 'string',
-            'instagram_url'     => 'string',
-            'linkedin_url'      => 'string',
+            'github_url'        => '',
+            'facebook_url'      => '',
+            'twitter_url'       => '',
+            'instagram_url'     => '',
+            'linkedin_url'      => '',
             'image'             => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048'
         ]);
 

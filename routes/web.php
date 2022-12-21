@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TeamController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\Leader\ProjectController as LeaderProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,7 @@ Route::get('/force/logout', function (Request $request) {
 
 Route::get('/dashboard', [HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
+// Profile Routes
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::get('/{id}/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -40,6 +42,19 @@ Route::middleware('auth')->group(function () {
     Route::put('/updatepassword', [ProfileController::class, 'updatepassword'])->name('profile.updatepassword');
     Route::post('/updateimage', [ProfileController::class, 'updateimage'])->name('profile.updateimage');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+// Chat Routes
+Route::middleware('auth')->group(function(){
+    Route::controller(ChatController::class)->group(function(){
+        Route::prefix('chat')->group(function(){
+            Route::get('/', 'index')->name('chat.index');
+            Route::get('/gettotalchat', 'totalUnreadChat');
+            Route::post('/updatetotalchat', 'updateUnreadChat')->name('chat.updateunreadchat');
+            Route::get('/getprofile', 'getProfile');
+            Route::get('/getchat', 'getChat');
+        });
+    });
 });
 
 Route::group(['middleware' => ['role:admin']], function(){

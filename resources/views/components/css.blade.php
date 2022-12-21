@@ -30,6 +30,3 @@
 
 <!-- Internal Gallery css-->
 <link href="{{ asset('assets/plugins/gallery/gallery.css') }}" rel="stylesheet">
-
-<!-- Summernote -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">

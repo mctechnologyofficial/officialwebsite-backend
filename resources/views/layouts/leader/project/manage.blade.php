@@ -39,7 +39,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Task</label>
-                            <textarea id="summernote" name="task" class="@error('task') is-invalid @enderror"></textarea>
+                            <textarea class="form-control" cols="30" rows="10" name="task" class="@error('task') is-invalid @enderror"></textarea>
                             @error('task')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -109,7 +109,7 @@
                                         @if ($data->status == 0)
                                             <span class="badge badge-danger">Not yet in progress</span>
                                         @elseif ($data->status == 1)
-                                            <span class="badge badge-warning">In progress</span>
+                                            <span cla `ss="badge badge-warning">In progress</span>
                                         @else
                                             <span class="badge badge-success">Completed</span>
                                         @endif
@@ -122,12 +122,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('js')
-    <script>
-        $('#summernote').summernote({
-            tabsize: 2,
-            height: 200
-        });
-    </script>
 @endsection
