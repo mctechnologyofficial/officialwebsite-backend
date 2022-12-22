@@ -20,9 +20,6 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item @if(request()->routeIs('admin.portfolio.*')) 'active' @endif">
-                    <a class="nav-link" href="{{ route('admin.portfolio.index') }}"><i class="ti-world"></i>Portfolio</a>
-                </li>
             @endrole
             @role('leader developer')
                 <li class="nav-item {{ request()->routeIs('leader.project.*') ? 'active' : '' }}">

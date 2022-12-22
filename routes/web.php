@@ -77,11 +77,6 @@ Route::group(['middleware' => ['role:admin']], function(){
             Route::delete('/project/destroy/{id}', 'destroy')->name('admin.project.destroy');
             Route::get('/project/getuser', 'getUser');
         });
-
-        // Portfolio
-        Route::controller(PortfolioController::class)->group(function() {
-            Route::get('/portfolio', 'index')->name('admin.portfolio.index');
-        });
     });
 });
 
