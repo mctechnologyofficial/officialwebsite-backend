@@ -26,6 +26,11 @@
                     <a class="nav-link" href="{{ route('leader.project.index') }}"><i class="ti-folder"></i>Project</a>
                 </li>
             @endrole
+            @hasrole('frontend developer|backend developer|mobile developer|UI/UX designer')
+                <li class="nav-item {{ request()->routeIs('it.task.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('it.task.index') }}"><i class="ti-list"></i>Task</a>
+                </li>
+            @endhasrole
         </ul>
     </div>
 </div>

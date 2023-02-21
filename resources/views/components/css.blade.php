@@ -30,3 +30,6 @@
 
 <!-- Internal Gallery css-->
 <link href="{{ asset('assets/plugins/gallery/gallery.css') }}" rel="stylesheet">
+
+<!-- Internal Darggable css-->
+<link href="{{ asset('assets/plugins/darggable/jquery-ui-darggable.css') }}" rel="stylesheet">

@@ -1,6 +1,18 @@
 @extends('layouts.app')
 @section('title', 'Chats')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/emoji/emojibuttonlistjs.min.css') }}">
+<style>
+    .nav-link:hover{
+        cursor: pointer;
+    }
+    #btnsend:hover{
+        cursor: pointer;
+    }
+</style>
+@endsection
+
 @section('content')
     <!-- Row -->
     <div class="row row-sm">
@@ -35,15 +47,18 @@
                                             </div>
                                             <div class="media-body">
                                                 <div class="media-contact-name">
-                                                    <span>{{ $data->name }}</span> <span>{{ $data->created_at->diffInDays() < 1 ? 'Today' : ucwords($user->created_at->diffForHumans(['options' => Carbon::ONE_DAY_WORDS])) }}</span>
+                                                    <span>{{ $data->name }}</span> <span>{{ $data->created_at->diffInDays() < 1 ? 'Today' : ucwords($data->created_at->diffForHumans(['options' => Carbon\Carbon::ONE_DAY_WORDS])) }}</span>
                                                 </div>
-                                                <p>
+                                                {{-- <p>
                                                     @php
-                                                        $user = App\Models\Chat::where('from_id', $data->from_id)->orderBy('created_at', 'ASC')->skip(1)->take(1)->get();
+                                                        $user = App\Models\Chat::where('from_id', $data->from_id)
+                                                        ->orWhere('from_id', Auth::user()->id)
+                                                        ->orderBy('id', 'DESC')
+                                                        ->take(1)
+                                                        ->get();
                                                     @endphp
-
                                                     {{ $user->first()->message }}
-                                                </p>
+                                                </p> --}}
                                             </div>
                                         </a>
                                     @endforeach
@@ -96,7 +111,7 @@
                         </div><!-- main-chat-header -->
                         <div class="main-chat-body" id="ChatBody">
                             <div class="content-inner">
-                                <label class="main-chat-time"><span id="time"></span></label>
+                                {{-- <label class="main-chat-time"><span id="time"></span></label> --}}
                                 {{-- <div class="media" id="media-no-flex"> --}}
                                     {{-- <div class="media-body">
                                         <div class="main-msg-wrapper">
@@ -132,13 +147,13 @@
                         </div>
                         <div class="main-chat-footer">
                             <nav class="nav">
-                                <a class="nav-link" data-toggle="tooltip" href="" title="Add Photo"><i class="fe fe-image"></i></a>
-                                <a class="nav-link" data-toggle="tooltip" href="" title="Attach a File"><i class="fe fe-paperclip"></i></a>
-                                <a class="nav-link" data-toggle="tooltip" href="" title="Emoji"><i class="far fa-smile"></i></a>
-                                <a class="nav-link" data-toggle="tooltip" href="" title="Record Voice"><i class="fe fe-mic"></i></a>
+                                {{-- <a class="nav-link mr-3" data-toggle="tooltip" id="filebtn" title="Attach a File"><i class="fe fe-paperclip"></i></a>
+                                <input type="file" name="" id="file" accept="*" class="d-none" /> --}}
+                                <a class="nav-link" data-toggle="tooltip" title="Emoji" id="emoji"><i class="far fa-smile"></i></a>
+                                {{-- <a class="nav-link" data-toggle="tooltip" href="" title="Record Voice"><i class="fe fe-mic"></i></a> --}}
                             </nav>
-                            <input class="form-control" placeholder="Type your message here..." type="text">
-                            <a class="main-msg-send" href=""><i class="far fa-paper-plane"></i></a>
+                            <input class="form-control" id="messagetext" placeholder="Type your message here..." onfocus="this.placeholder = ''" onblur="this.placeholder = 'Type your message here...'" type="text" style="padding-left: 10px;" />
+                            <a class="main-msg-send" id="btnsend"><i class="far fa-paper-plane"></i></a>
                         </div>
                     </div>
                 </div>
@@ -148,11 +163,19 @@
     <!-- End Row -->
 @endsection
 @section('js')
-    <script src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="{{ asset('assets/emoji/emojibuttonlistjs.min.js') }}"></script>
     <script>
         $(document).ready(function(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            var usrid, respond;
+            var usrid;
+
+            instance = new emojiButtonList("emoji", {
+                textBoxID: "messagetext",
+                dropDownXAlign: "left",
+                dropDownYAlign: "bottom",
+                yAlignMargin: 15,
+            });
 
             function getTotalChat(){
                 $.ajax({
@@ -193,9 +216,23 @@
                 });
             }
 
+            function createChat(userid) {
+                $.ajax({
+                    type: 'GET',
+                    url: "/chat/getchat",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        fromid: userid,
+                    },
+                    success: (response) => {
+                        $('#chatroom').empty();
+                        getChat(response, userid);
+                    }
+                });
+            }
+
             function getChat(response, from) {
                 var len = 0;
-                $('#chatroom').empty();
 
                 if(response['data'] != null){
                     len = response['data'].length;
@@ -215,13 +252,15 @@
                         let from_id = response['data'][i].from_id;
                         let to_id = response['data'][i].to_id;
                         let auth_id = {!! Auth::user()->id !!};
+                        let timebubble = moment(response['data'][i].created_at).format('LT');
 
-                        // var time = "<label class='main-chat-time'><span id='time'></span></label>";
+
+                        var time = "<label class='main-chat-time'><span id='time'>" + created_at + "</span></label>";
                         var from_chat =
-                        "<div class='media new' id='media-no-flex'>"
+                        "<div class='media' id='media-no-flex'>"
                             +"<div class='media-body'>"
                                 + "<div class='main-msg-wrapper'>" + message + "</div>"
-                                    + "<div>" + "<span>10:12 am</span>"
+                                    + "<div>" + "<span>" + timebubble + "</span>"
                                     + "<a href=''><i class='icon ion-android-more-horizontal'></i></a>"
                                 + "</div>"
                             + "</div>"
@@ -231,18 +270,44 @@
                         "<div class='media flex-row-reverse'>"
                             +"<div class='media-body'>"
                                 + "<div class='main-msg-wrapper'>" + message + "</div>"
-                                    + "<div>" + "<span>10:12 am</span>"
+                                    + "<div>" + "<span>" + timebubble + "</span>"
                                     + "<a href=''><i class='icon ion-android-more-horizontal'></i></a>"
                                 + "</div>"
                             + "</div>"
                         + "</div>";
 
-                        $('#time').html(created_at);
-                        if(from_id == from && to_id == auth_id){
-                            $('#chatroom').append(from_chat);
-                        }
-                        if(from_id == auth_id && to_id == from){
-                            $('#chatroom').append(to);
+                        // var media =
+                        // "<div class='pd-0'>"
+                        //     <img alt='avatar' class='wd-150 mb-1'>
+                        // </div>
+
+                        let date = new Date().toISOString().slice(0, 10);
+                        var today = moment(date, "YYYY-MM-DD").calendar(null, {
+                            lastDay : '[Yesterday]',
+                            sameDay : '[Today]',
+                            nextDay : '[Tomorrow]',
+                            lastWeek : '[last] dddd',
+                            nextWeek : 'dddd',
+                            sameElse : 'L'
+                        });
+
+                        if(created_at == today || created_at != today){
+                            $('#chatroom').append(time);
+                            var map = {};
+                            $(".main-chat-time").each(function(){
+                                var value = $(this).text();
+                                if (map[value] == null){
+                                    map[value] = true;
+                                } else {
+                                    $(this).remove();
+                                }
+                            });
+                            if(from_id == from && to_id == auth_id){
+                                $('#chatroom').append(from_chat);
+                            }
+                            if(from_id == auth_id && to_id == from){
+                                $('#chatroom').append(to);
+                            }
                         }
                     }
                 }else{
@@ -250,9 +315,11 @@
                 }
             }
 
-            setInterval(function(){
+            window.setInterval(function(){
                 getProfile(usrid);
-                // getChat(respond);
+                createChat(usrid);
+
+
             }, 1000);
 
             $('#status').on('change', function(){
@@ -265,6 +332,26 @@
                     $('.dot-label').removeClass('bg-success');
                     $('.dot-label').addClass('bg-danger');
                 }
+            });
+
+            $('#filebtn').on('click', function(){
+                $('#file').click();
+            });
+
+            $('#btnsend').on('click', function(){
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('chat.sendchat') }}",
+                    data: {
+                        _token: CSRF_TOKEN,
+                        message: $('#messagetext').val(),
+                        toid: usrid
+                    },
+                    success: (response) => {
+                        $('#messagetext').val('');
+                        createChat(usrid);
+                    }
+                });
             });
 
             $(document).on('click', '#recentchat', function(){
@@ -300,20 +387,9 @@
                 });
 
                 // show room chat
-                $.ajax({
-                    type: 'GET',
-                    url: "/chat/getchat",
-                    data: {
-                        _token: CSRF_TOKEN,
-                        fromid: fromid,
-                    },
-                    success: (response) => {
-                        getChat(response, fromid);
-                        // respond = response;
-                    }
-                });
-
                 $('#roomchat').removeClass('d-none');
+                $('#chatroom').empty();
+                createChat(fromid);
             });
 
         });

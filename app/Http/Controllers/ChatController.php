@@ -61,9 +61,11 @@ class ChatController extends Controller
     public function updateUnreadChat(Request $request)
     {
         $fromid = $request->fromid;
-        $updateRecentChat = Chat::where('from_id', $fromid)->update([
-            'status' => 1
-        ]);
+        if($fromid != Auth::user()->id){
+            $updateRecentChat = Chat::where('from_id', $fromid)->update([
+                'status' => 1
+            ]);
+        }
 
         $response['data'] = $updateRecentChat;
 
@@ -108,6 +110,30 @@ class ChatController extends Controller
         $unreadmessage = Chat::where('from_id', $fromid)->orWhere('from_id', Auth::user()->id)->get();
 
         $response['data'] = $unreadmessage;
+
+        return response()->json($response);
+    }
+
+    /**
+     * sendChat Chat
+     *
+     * @param \illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function sendChat(Request $request)
+    {
+        $message = $request->message;
+        $toid = $request->toid;
+
+        $send = Chat::create([
+            'from_id'   => Auth::user()->id,
+            'to_id'     => $toid,
+            'message'   => $message,
+            'media'     => null,
+            'status'    => 0
+        ]);
+
+        $response['data'] = $send;
 
         return response()->json($response);
     }

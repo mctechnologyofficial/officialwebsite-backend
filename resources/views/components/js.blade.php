@@ -56,3 +56,7 @@
 
 <!-- Internal Chat js-->
 <script src="{{ asset('assets/js/chat.js') }}"></script>
+
+<!-- Internal Darggable js-->
+<script src="{{ asset('assets/plugins/darggable/jquery-ui-darggable.min.js') }}"></script>
+<script src="{{ asset('assets/plugins/darggable/darggable.js') }}"></script>

@@ -46,6 +46,20 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Priority</label>
+                            <select name="status" class="form-control @error('status') is-invalid @enderror">
+                                <option value="" selected disabled>Choose priority</option>
+                                <option value="0">Low</option>
+                                <option value="1">Normal</option>
+                                <option value="2">High</option>
+                            </select>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-outline-primary">Submit</button>
                     </form>
                 </div>
@@ -100,20 +114,22 @@
                             </thead>
                             <tbody>
                                 @foreach ($todolist as $key => $data)
-                                    <td>{{ $key + 1 }}</td>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ ucwords($data->roles->first()->name) }}</td>
-                                    <td>{{ $data->teamname }}</td>
-                                    <td>{{ $data->task }}</td>
-                                    <td align="center">
-                                        @if ($data->status == 0)
-                                            <span class="badge badge-danger">Not yet in progress</span>
-                                        @elseif ($data->status == 1)
-                                            <span cla `ss="badge badge-warning">In progress</span>
-                                        @else
-                                            <span class="badge badge-success">Completed</span>
-                                        @endif
-                                    </td>
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $data->name }}</td>
+                                        <td>{{ ucwords($data->roles->first()->name) }}</td>
+                                        <td>{{ $data->teamname }}</td>
+                                        <td>{{ $data->task }}</td>
+                                        <td align="center">
+                                            @if ($data->status == 0)
+                                                <span class="badge badge-danger">Not yet in progress</span>
+                                            @elseif ($data->status == 1)
+                                                <span cla `ss="badge badge-warning">In progress</span>
+                                            @else
+                                                <span class="badge badge-success">Completed</span>
+                                            @endif
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

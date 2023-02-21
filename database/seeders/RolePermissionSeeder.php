@@ -26,6 +26,7 @@ class RolePermissionSeeder extends Seeder
             'remember_token'        => Str::random(10),
             'created_at'            => Carbon::now(),
             'updated_at'            => Carbon::now(),
+            'image'                 => 'storage/users/me.jfif'
         ];
         $owner = User::create(array_merge([
             'name'          => 'Owner MC',

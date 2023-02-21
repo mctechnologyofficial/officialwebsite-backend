@@ -13,6 +13,7 @@ class Todolist extends Model
         'member_id',
         'project_id',
         'task',
+        'priority',
         'status'
     ];
 }

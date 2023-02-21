@@ -21,7 +21,7 @@
 
 </head>
 
-<body class="horizontalmenu dark-theme">
+<body class="horizontalmenu">
 
     <!-- Loader -->
     <div id="global-loader">

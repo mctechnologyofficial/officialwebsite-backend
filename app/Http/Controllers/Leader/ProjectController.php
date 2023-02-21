@@ -61,7 +61,8 @@ class ProjectController extends Controller
         $attr = $request->validate([
             'project_id'    => 'required',
             'member_id'     => 'required',
-            'task'          => 'required'
+            'task'          => 'required',
+            'status'        => 'required'
         ]);
 
         Todolist::create([
@@ -69,6 +70,7 @@ class ProjectController extends Controller
             'project_id'    => $attr['project_id'],
             'member_id'     => $attr['member_id'],
             'task'          => $attr['task'],
+            'priority'      => $attr['status'],
             'status'        => 0
         ]);
 

@@ -13,7 +13,7 @@
                             <div class="row align-items-center">
                                 <div class="offset-lg-4 offset-sm-6 col-lg-8 col-sm-6 col-12">
                                     <h4 class="d-flex  mb-3">
-                                        <span class="font-weight-bold text-white ">{{ Auth::user()->name }}</span>
+                                        <span class="font-weight-bold text-white ">Welcome {{ Auth::user()->name }}</span>
                                     </h4>
                                     <p class="tx-white-7 mb-1">You have two projects to finish, you had completed <b class="text-warning">57%</b> from your montly level, Keep going to your level
                                 </div>

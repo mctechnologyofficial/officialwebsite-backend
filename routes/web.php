@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\Developer\TaskController;
 use App\Http\Controllers\Leader\ProjectController as LeaderProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,7 @@ Route::middleware('auth')->group(function(){
             Route::post('/updatetotalchat', 'updateUnreadChat')->name('chat.updateunreadchat');
             Route::get('/getprofile', 'getProfile');
             Route::get('/getchat', 'getChat');
+            Route::post('/sendchat', 'sendChat')->name('chat.sendchat');
         });
     });
 });
@@ -102,6 +104,17 @@ Route::group(['middleware' => ['role:leader developer']], function(){
             Route::get('/project/manage/{id}', 'manage')->name('leader.project.manage');
             Route::put('/project/edit/{id}', 'edit')->name('leader.project.edit');
             Route::put('/project/update/{id}', 'update')->name('leader.project.update');
+        });
+    });
+});
+
+Route::group(['middleware' => ['role:frontend developer|backend developer|mobile developer|UI/UX designer']], function(){
+    Route::prefix('it')->group(function(){
+        // Project Routes
+        Route::controller(TaskController::class)->group(function(){
+            Route::get('/task', 'index')->name('it.task.index');
+            Route::post('/task/update', 'update')->name('it.task.update');
+            Route::get('/task/gettask', 'gettask');
         });
     });
 });
