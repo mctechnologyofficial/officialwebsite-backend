@@ -7,7 +7,7 @@
             <div class="col-lg-4 col-sm-12 screencontainer" id="0">
                 <div class="card custom-card card-draggable bg-danger-light tx-white">
                     <div class="card-body">
-                        <p class="mg-b-0">Not yet in progress</p>
+                        <p class="mg-b-0 text-danger">Not yet in progress</p>
                     </div>
                 </div>
                 @foreach ($notyet as $data)
@@ -27,7 +27,7 @@
             <div class="col-lg-4 col-sm-12 screencontainer" id="1">
                 <div class="card custom-card card-draggable bg-warning-light tx-white">
                     <div class="card-body">
-                        <p class="mg-b-0">In progress</p>
+                        <p class="mg-b-0 text-warning">In progress</p>
                     </div>
                 </div>
                 @foreach ($progress as $data)
@@ -47,7 +47,7 @@
             <div class="col-lg-4 col-sm-12 screencontainer" id="2">
                 <div class="card custom-card card-draggable bg-success-light tx-white">
                     <div class="card-body">
-                        <p class="mg-b-0">Completed</p>
+                        <p class="mg-b-0 text-success   ">Completed</p>
                     </div>
                 </div>
                 @foreach ($complete as $data)
@@ -108,7 +108,22 @@
                             status: id,
                         },
                         success: (response) => {
-                            alert('oke');
+                            Toastify({
+                                avatar: "{{ asset('assets/img/brand/logo-mc.png') }}",
+                                text: "Task updated successfully !",
+                                duration: 5000,
+                                destination: "https://github.com/apvarun/toastify-js",
+                                newWindow: true,
+                                close: true,
+                                gravity: "bottom", // `top` or `bottom`
+                                position: "right", // `left`, `center` or `right`
+                                stopOnFocus: true, // Prevents dismissing of toast on hover
+                                style: {
+                                    background: "#49b462",
+                                    color: '#fff',
+                                },
+                                onClick: function(){} // Callback after click
+                            }).showToast();
                         }
                     });
                 }

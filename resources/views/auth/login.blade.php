@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>MC TECHNOLOGY | Login</title>
-    <link rel="shortcut icon" href="{{ asset('assets/img/brand/favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/brand/mc.ico') }}" type="image/x-icon">
 
     <style>
         @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
@@ -55,9 +55,9 @@
         }
 
         .wrapper {
-            background: #20203c;
-            background: linear-gradient(top left, #20203c 0%, #393960 100%);
-            background: linear-gradient(to bottom right, #20203c 0%, #393960 100%);
+            background: #0273ed;
+            background: linear-gradient(top left, #0273ed 0%, #bbbbbb 100%);
+            background: linear-gradient(to bottom right, #0273ed 0%, #bbbbbb 100%);
             position: absolute;
             left: 0;
             width: 100%;
@@ -115,7 +115,7 @@
         form input:focus {
             background-color: white;
             width: 300px;
-            color: #20203c;
+            color: #0273ed;
         }
 
         form button {
@@ -124,7 +124,7 @@
             background-color: white;
             border: 0;
             padding: 10px 15px;
-            color: #20203c;
+            color: #0273ed;
             border-radius: 3px;
             width: 250px;
             cursor: pointer;

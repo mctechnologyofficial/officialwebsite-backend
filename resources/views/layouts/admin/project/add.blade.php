@@ -41,6 +41,15 @@
                             @enderror
                         </div>
                         <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Company Name</label>
+                            <input type="text" name="company" class="form-control @error('company') is-invalid @enderror" id="exampleInputPassword1">
+                            @error('company')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Programming Language</label>
                             <input type="text" name="programming_language" class="form-control @error('programming_language') is-invalid @enderror" id="exampleInputEmail">
                             @error('programming_language')

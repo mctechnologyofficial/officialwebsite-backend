@@ -47,6 +47,7 @@ class ProjectController extends Controller
     {
         $attr = $request->validate([
             'name'                      => 'required|string',
+            'company'                   => 'required|string',
             'programming_language'      => 'required|string',
             'team_id'                   => 'required',
             'leader_id'                 => 'required',
@@ -64,6 +65,7 @@ class ProjectController extends Controller
 
         Project::create([
             'name'                      => $attr['name'],
+            'companu'                   => $attr['company'],
             'programming_language'      => $attr['programming_language'],
             'team_id'                   => $attr['team_id'],
             'leader_id'                 => $attr['leader_id'],

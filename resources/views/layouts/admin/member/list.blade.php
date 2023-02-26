@@ -34,7 +34,7 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover" id="example1">
-                        <thead>
+                        <thead style="background-color: #0273ed;">
                             <tr>
                                 <th class="wd-5p">#</th>
                                 <th class="wd-20p">Name</th>

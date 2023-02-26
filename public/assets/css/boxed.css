@@ -23,8 +23,8 @@
     -ms-flex-pack: center;
     -webkit-box-pack: center;
     min-height: 100vh;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 0px 0px, rgba(0, 0, 0, 0.3) 0px 5px 25px 0px;
-    box-shadow: rgba(0, 0, 0, 0.3) 0px 5px 0px 0px, rgba(0, 0, 0, 0.3) 0px 5px 25px 0px;
+    -webkit-box-shadow: rgba(229, 229, 229, 0.3) 0px 5px 0px 0px, rgba(229, 229, 229, 0.3) 0px 5px 25px 0px;
+    box-shadow: rgba(229, 229, 229, 0.3) 0px 5px 0px 0px, rgba(229, 229, 229, 0.3) 0px 5px 25px 0px;
   }
   body {
     background: #c5cacf;
